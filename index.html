@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR Code Scanner - From Image & Webcam | ScanQR</title>
+  <meta name="description" content="WiFi QR Code Scanner delivers instant connectivity by decoding network credentials through your camera or image uploads.">
+  <meta name="keywords" content="qr code scanner online, scan qr code free, qr code reader online, scan qr from image, qr code scanner no app, online qr code scanner without app, free qr code scanner, qr reader online, scan qr code from screenshot, qr code scanner webcam, read qr code online, qr code scanner iphone, qr code scanner android, scan qr code laptop, qr code scanner from photo">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="QRCodeScan">
+  <link rel="canonical" href="https://qrcodescann.com">
+  <!-- Open Graph -->
+  <meta property="og:title" content="QR Code Scanner - From Image & Webcam | ScanQR">
+  <meta property="og:description" content="WiFi QR Code Scanner delivers instant connectivity by decoding network credentials through your camera or image uploads.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://qrcodescann.com/">
+  <meta property="og:image" content="https://qrcodescann.com/images/qr_scanner.avif">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="QR Code Scanner - From Image & Webcam | ScanQR">
+  <meta name="twitter:description" content="WiFi QR Code Scanner delivers instant connectivity by decoding network credentials through your camera or image uploads.">
+  <meta name="twitter:image" content="https://qrcodescann.com/images/qr_scanner.avif">
+  <!-- Schema.org -->
+  <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+  <link rel="manifest" href="/favicon/site.webmanifest" />
+   <!-- Favicon -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "QRScan - QR Code Scanner Online",
+    "description": "Free online QR code scanner that reads QR codes from webcam, images, and screenshots without any app download.",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any",
+    "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+    "featureList": ["Webcam QR scanning", "Image QR scanning", "No app required", "Works on all devices"]
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar" role="navigation" aria-label="Main navigation">
+  <div class="container">
+    <a href="/" class="nav-logo" aria-label="QRScanPro Home">
+      <img src="images/qr_code_scanner.avif" alt="QR Code Scanner Logo" style="height: 36px; width: auto; object-fit: contain;">
+      <span>QR<em>Code</em>Scan</span>
+    </a>
+    <ul class="nav-menu" id="nav-menu" role="menubar">
+      <li role="none"><a href="/image-qr-scanner" role="menuitem">Image Qr Scanner</a></li>
+      <li role="none"><a href="/wifi-qr-scanner" role="menuitem">WiFi QR Scanner</a></li>
+      <li role="none"><a href="/barcode-scanner" role="menuitem">Barcode Scanner</a></li>
+      <li role="none"><a href="/qr-code-generator" class="nav-cta" role="menuitem">Qr Code Generator →</a></li>
+    </ul>
+    <button class="nav-toggle" id="nav-toggle" aria-controls="nav-menu" aria-expanded="false" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ===== PAGE HERO / H1 ===== -->
+<section class="page-hero text-center" aria-labelledby="hero-h1">
+  <div class="container">
+    <h1 id="hero-h1">QR Code Scanner</h1>
+    <p style="margin: 0 auto;">WiFi QR Code Scanner delivers instant connectivity by decoding network credentials through your camera or image uploads. It offers a secure way to share WiFi passwords without manual typing. Our free QR Code Scanner is web based ensures private scanning across all devices including Android and iPhone.</p>
+  </div>
+</section>
+
+<!-- ===== TOOL SECTION ===== -->
+<section class="section-sm" aria-label="QR Scanner Tool">
+  <div class="container">
+    <div class="tool-card">
+      <div class="tool-tabs" role="tablist" aria-label="Scanner mode">
+        <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="tab-webcam" id="btn-webcam" onclick="switchTab('webcam', this)">📷 Webcam Scanner</button>
+        <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-image" id="btn-image" onclick="switchTab('image', this)">🖼️ Upload Image</button>
+        <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-url" id="btn-url" onclick="switchTab('url', this)">🔗 Image URL</button>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+        <!-- LEFT PANEL -->
+        <div>
+          <!-- Webcam Tab -->
+          <div class="tab-panel active" id="tab-webcam" role="tabpanel" aria-labelledby="btn-webcam">
+            <div class="webcam-container" id="webcam-container" style="display:none;">
+              <video id="qr-video" autoplay muted playsinline webkit-playsinline aria-label="Camera feed"></video>
+              <div class="scan-overlay" aria-hidden="true">
+                <div class="scan-frame"></div>
+                <div class="scan-line" id="scan-line"></div>
+              </div>
+            </div>
+            <div id="webcam-placeholder" style="background:#f9fafb;border:2px dashed #e5e7eb;border-radius:12px;padding:48px 24px;text-align:center;">
+              <div style="font-size:3rem;margin-bottom:12px;">📷</div>
+              <p style="font-weight:600;color:#374151;margin-bottom:6px;">Webcam QR Scanner</p>
+              <p style="font-size:0.875rem;color:#6b7280;margin-bottom:20px;">Click below to activate your camera and scan a QR code in real time</p>
+              <button class="btn btn-primary btn-lg" id="start-cam-btn" onclick="startWebcamScan()">
+                <span>📷</span> Open Camera
+              </button>
+            </div>
+            <div style="margin-top:14px; display:none;" id="webcam-controls">
+              <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                <button class="btn btn-outline btn-sm" onclick="stopWebcamScan()">⛔ Stop Camera</button>
+                <button class="btn btn-outline btn-sm" onclick="switchCamera()">🔄 Switch Camera</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Image Upload Tab -->
+          <div class="tab-panel" id="tab-image" role="tabpanel" aria-labelledby="btn-image">
+            <div class="drop-zone" id="drop-zone" onclick="document.getElementById('file-input').click()" ondrop="handleDrop(event)" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" role="button" aria-label="Upload QR code image" tabindex="0">
+              <div class="drop-zone-icon" aria-hidden="true">📁</div>
+              <p><strong>Drag & drop your QR code image here</strong></p>
+              <p>or click to browse files</p>
+              <small>Supports JPG, PNG, GIF, WebP, BMP, SVG • Max 20MB</small>
+              <input type="file" id="file-input" accept="image/*" onchange="handleFileInput(event)" aria-label="Choose image file">
+            </div>
+            <div id="image-preview-box" style="display:none;margin-top:12px;text-align:center;">
+              <img id="image-preview" src="" alt="QR code image preview" style="max-height:200px;border-radius:8px;border:1px solid #e5e7eb;">
+            </div>
+          </div>
+
+          <!-- URL Tab -->
+          <div class="tab-panel" id="tab-url" role="tabpanel" aria-labelledby="btn-url">
+            <div class="form-group">
+              <label class="form-label" for="url-input">Image URL</label>
+              <input type="url" class="form-input" id="url-input" placeholder="https://example.com/qrcode.png" aria-label="Enter image URL containing QR code">
+            </div>
+            <button class="btn btn-primary btn-full" onclick="scanFromUrl()">
+              <span>🔍</span> Scan QR from URL
+            </button>
+          </div>
+        </div>
+
+        <!-- RIGHT PANEL — Results -->
+        <div>
+          <div id="result-area">
+            <div class="result-box" id="result-box">
+              <div class="result-header">
+                <span class="result-label" id="result-label">Result</span>
+                <span id="qr-type-badge" style="display:none;" class="qr-type-badge"></span>
+              </div>
+              <div class="result-text" id="result-text" style="color:#9ca3af;font-style:italic;">Point your camera at a QR code or upload an image to see results here...</div>
+              <div class="result-actions" id="result-actions" style="display:none;">
+                <button class="btn btn-sm btn-primary" onclick="copyResult()">📋 Copy Text</button>
+                <button class="btn btn-sm btn-outline" id="open-url-btn" style="display:none;" onclick="openResultUrl()">🔗 Open URL</button>
+                <button class="btn btn-sm btn-outline" onclick="clearResult()">✕ Clear</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Scan History -->
+          <div style="margin-top:20px;">
+            <div class="export-bar">
+              <strong id="history-count">0 scans</strong>
+              <div style="display:flex;gap:6px;">
+                <button class="btn btn-sm btn-outline" onclick="exportHistory('csv')" aria-label="Export as CSV">⬇ CSV</button>
+                <button class="btn btn-sm btn-outline" onclick="exportHistory('json')" aria-label="Export as JSON">⬇ JSON</button>
+                <button class="btn btn-sm btn-outline" onclick="clearHistory()" aria-label="Clear history">🗑 Clear</button>
+              </div>
+            </div>
+            <div style="border:1px solid #e5e7eb;border-radius:10px;overflow:hidden;">
+              <div style="background:#f9fafb;padding:8px 14px;border-bottom:1px solid #e5e7eb;">
+                <strong style="font-size:0.8rem;color:#6b7280;text-transform:uppercase;letter-spacing:0.5px;">Scan History</strong>
+              </div>
+              <div class="history-list" id="history-list" style="min-height:60px;">
+                <div style="padding:20px;text-align:center;color:#9ca3af;font-size:0.875rem;" id="history-empty">No scans yet — results appear here automatically</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- QR Type Reference Table -->
+      <div style="margin-top:28px;">
+        <h2 class="tool-title" style="font-size:1.1rem;margin-bottom:14px;">Supported QR Code Types</h2>
+        <div class="table-wrapper">
+          <table class="data-table">
+            <thead><tr><th>Type</th><th>Format</th><th>Description</th><th>Example</th></tr></thead>
+            <tbody>
+              <tr><td><span class="qr-type-badge" style="background:#1a56db;font-size:0.75rem;padding:3px 10px;">🔗 URL</span></td><td>https://...</td><td>Links to any website or webpage</td><td>https://example.com</td></tr>
+              <tr><td><span class="qr-type-badge" style="background:#0ea5e9;font-size:0.75rem;padding:3px 10px;">📶 WiFi</span></td><td>WIFI:T:...;S:...;P:...</td><td>Connects device to a WiFi network</td><td>WIFI:T:WPA;S:MyNet;P:pass;;</td></tr>
+              <tr><td><span class="qr-type-badge" style="background:#7c3aed;font-size:0.75rem;padding:3px 10px;">👤 vCard</span></td><td>BEGIN:VCARD</td><td>Digital business card with contact info</td><td>Name, phone, email, company</td></tr>
+              <tr><td><span class="qr-type-badge" style="background:#10b981;font-size:0.75rem;padding:3px 10px;">💬 SMS</span></td><td>smsto:...</td><td>Opens SMS app with pre-filled message</td><td>smsto:+1234:Hello!</td></tr>
+              <tr><td><span class="qr-type-badge" style="background:#f59e0b;font-size:0.75rem;padding:3px 10px;">📞 Phone</span></td><td>tel:...</td><td>Initiates a phone call</td><td>tel:+1234567890</td></tr>
+              <tr><td><span class="qr-type-badge" style="background:#ef4444;font-size:0.75rem;padding:3px 10px;">✉️ Email</span></td><td>mailto:...</td><td>Opens email client with draft</td><td>mailto:user@email.com</td></tr>
+              <tr><td><span class="qr-type-badge" style="background:#8b5cf6;font-size:0.75rem;padding:3px 10px;">📅 Event</span></td><td>BEGIN:VEVENT</td><td>Adds event to calendar</td><td>Title, location, date/time</td></tr>
+              <tr><td><span class="qr-type-badge" style="background:#f97316;font-size:0.75rem;padding:3px 10px;">📍 Geo</span></td><td>geo:lat,lng</td><td>Opens map to a location</td><td>geo:40.7128,-74.0060</td></tr>
+              <tr><td><span class="qr-type-badge" style="background:#6b7280;font-size:0.75rem;padding:3px 10px;">📄 Text</span></td><td>Plain text</td><td>Any plain text message</td><td>Hello, world!</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== INTRO PARAGRAPH (SEO) ===== -->
+<section class="section" style="background:var(--bg-light);" aria-labelledby="intro-heading">
+  <div class="container">
+    <div style="max-width:860px; margin:0 auto;">
+      <h2 id="intro-heading">QR Code Scanner Online</h2>
+      <p style="margin-top:16px; font-size:1.05rem;">QRScan is a powerful browser-based <strong>QR code scanner</strong> works on any device without requiring you to download an app or create an account. Whether you need to <strong>scan a QR code from an image</strong> on your computer read a QR code using your phone's webcam or decode a QR from a screenshot our tool handles it all instantly right inside your browser. Built with Google's industry-standard ZXing scanning engine QRScan delivers fast accurate results across all modern browsers including Chrome, Firefox, Safari, and Edge. All processing is done locally on your device, which means your QR code images and scanned data are completely private and never sent to any external server.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FEATURES ===== -->
+<section class="section" aria-labelledby="features-heading">
+  <div class="container">
+    <div class="text-center mb-8">
+      <h2 id="features-heading">QRCodeScan Features</h2>
+    </div>
+    <div class="grid-3">
+      <div class="feature-item">
+        <div class="feature-icon">⚡</div>
+        <div>
+          <h3>Instant Scanning Speed</h3>
+          <p>Decodes QR codes in milliseconds using optimized image processing algorithms.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">📷</div>
+        <div>
+          <h3>Webcam QR Code Scanner</h3>
+          <p>Use your device camera for live QR scanning. Works with front and rear cameras on phones and laptops.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🖼️</div>
+        <div>
+          <h3>Scan QR Code from Image</h3>
+          <p>Upload JPG, PNG, GIF, WebP, or BMP files. Drag-and-drop supported. Also paste image URLs directly.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🔒</div>
+        <div>
+          <h3>100% Private & Secure</h3>
+          <p>All scanning happens in your browser. No images or data are ever uploaded to any server.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">📱</div>
+        <div>
+          <h3>Compatible with All Devices</h3>
+          <p>Fully responsive design  scan QR codes on iPhone, Android, tablet, laptop, or desktop PC.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🗂️</div>
+        <div>
+          <h3>Scan History & Export</h3>
+          <p>Every scan is saved locally. Export your scan history as CSV or JSON for record-keeping.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🔗</div>
+        <div>
+          <h3>Detects All QR Types</h3>
+          <p>Automatically identifies URLs, WiFi, vCards, SMS, phone, email, location, calendar events, and plain text.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">📊</div>
+        <div>
+          <h3>Scan History Tracking</h3>
+          <p>Track all your previous scans in a clean history log. Copy, open, or delete any previous result.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🌐</div>
+        <div>
+          <h3>Cross-Browser Compatible</h3>
+          <p>Tested and working on Chrome, Firefox, Safari, Edge, and Opera on all major platforms.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== HOW TO USE ===== -->
+<section class="section" style="background:var(--bg-light);" aria-labelledby="howto-heading">
+  <div class="container">
+    <div style="max-width:760px; margin:0 auto;">
+      <h2 id="howto-heading">Scan a QR Code Online — Step by Step</h2>
+      <p style="margin-top:8px; margin-bottom:28px;">Follow these simple steps to read any QR code instantly without an app.</p>
+      <div class="steps">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h3>Choose Your Scanning Method</h3>
+            <p>Select <strong>Webcam Scanner</strong> to scan QR codes using your device camera in real time, or <strong>Upload Image</strong> to scan a saved QR code image or screenshot from your device. You can also paste an image URL directly.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h3>Point Camera or Upload Image</h3>
+            <p>For webcam scanning: click <strong>Open Camera</strong>, allow browser camera permission, and point your camera at the QR code. For image scanning: drag and drop the image or click to browse and select your file.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h3>Get Instant Results</h3>
+            <p>The scanner automatically detects and decodes the QR code. The result appears immediately in the results panel, including the QR type (URL, WiFi, contact, etc.) and the decoded content.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <h3>Copy, Open, or Save the Result</h3>
+            <p>Click <strong>Copy Text</strong> to copy the decoded data to your clipboard. If it's a URL, click <strong>Open URL</strong> to visit it. All scans are automatically saved to your local history for later reference.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== RELATED TOOLS ===== -->
+<section class="section" aria-labelledby="tools-heading">
+  <div class="container">
+    <h2 id="tools-heading" class="mb-6">More Free QR Code & Barcode Tools</h2>
+    <div class="related-tools">
+      <a href="/qr-code-generator" class="related-tool-card">
+        <div class="related-tool-icon" style="background:#e8f0fe;">⚙️</div>
+        <div>
+          <h4>QR Code Generator</h4>
+          <p>Create custom QR codes with logo, colors, and styles. Download as PNG, SVG, or PDF.</p>
+        </div>
+      </a>
+      <a href="/image-qr-scanner" class="related-tool-card">
+        <div class="related-tool-icon" style="background:#f0fdf4;">🖼️</div>
+        <div>
+          <h4>Image QR Scanner</h4>
+          <p>Dedicated tool to scan QR codes from image files and screenshots.</p>
+        </div>
+      </a>
+      <a href="/wifi-qr-scanner" class="related-tool-card">
+        <div class="related-tool-icon" style="background:#ecfdf5;">📶</div>
+        <div>
+          <h4>WiFi QR Scanner</h4>
+          <p>Decode WiFi QR codes to reveal SSID, password, and security type.</p>
+        </div>
+      </a>
+      <a href="/barcode-scanner" class="related-tool-card">
+        <div class="related-tool-icon" style="background:#fffbeb;">📊</div>
+        <div>
+          <h4>Barcode Scanner</h4>
+          <p>Scan 1D barcodes EAN-13, Code 128, UPC, Code 39, and more.</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section class="section" style="background:var(--bg-light);" aria-labelledby="faq-heading">
+  <div class="container">
+    <div style="max-width:780px; margin:0 auto;">
+      <h2 id="faq-heading" class="mb-6">Frequently Asked Questions</h2>
+      <div role="list">
+        <div class="faq-item" role="listitem">
+          <button class="faq-question" aria-expanded="false">Can I scan a QR code online without downloading any app<i class="icon faq-icon">+</i></button>
+          <div class="faq-answer">Yes qrcodescann.com is a completely browser-based QR code scanner that requires no app download. Simply open the website on any device iPhone, Android, tablet, or computer and start scanning immediately. It works in Chrome, Firefox, Safari, and Edge.</div>
+        </div>
+        <div class="faq-item" role="listitem">
+          <button class="faq-question" aria-expanded="false">How do I scan a QR code from a screenshot or saved image<i class="icon faq-icon">+</i></button>
+          <div class="faq-answer">Click the <strong>Upload Image</strong> tab, then drag and drop your screenshot or image file into the upload area, or click to browse. The scanner will automatically detect and decode any QR code in the image. This is especially useful when you receive QR codes via email or messaging apps on your computer.</div>
+        </div>
+        <div class="faq-item" role="listitem">
+          <button class="faq-question" aria-expanded="false">Is it safe to scan QR codes using this online tool<i class="icon faq-icon">+</i></button>
+          <div class="faq-answer">Absolutely. All QR code scanning is performed entirely within your browser no images or data are ever sent to or stored on any external server. Your scans are 100% private. We also recommend previewing URL results before opening links from unknown QR codes.</div>
+        </div>
+        <div class="faq-item" role="listitem">
+          <button class="faq-question" aria-expanded="false">Can I scan a QR code from my iPhone or iPad without an app<i class="icon faq-icon">+</i></button>
+          <div class="faq-answer">Yes. Open QRCodeScan in Safari or Chrome on your iPhone or iPad. Use the <strong>Webcam Scanner</strong> tab to access your camera, or the <strong>Upload Image</strong> tab to select a photo from your camera roll. The tool works with iOS 13+ and all modern mobile browsers.</div>
+        </div>
+        <div class="faq-item" role="listitem">
+          <button class="faq-question" aria-expanded="false">What QR code types can this scanner read<i class="icon faq-icon">+</i></button>
+          <div class="faq-answer">Our scanner reads all standard QR code types including: URL/website links, WiFi network codes, vCard business cards, SMS messages, phone numbers, email addresses, calendar events, geographic coordinates, and plain text. It also supports Data Matrix and other 2D barcode formats.</div>
+        </div>
+        <div class="faq-item" role="listitem">
+          <button class="faq-question" aria-expanded="false">How can I scan a QR code on my laptop or PC without a phone<i class="icon faq-icon">+</i></button>
+          <div class="faq-answer">There are two easy methods: (1) If the QR code is displayed on another screen or printed, use the <strong>Webcam Scanner</strong> with your laptop's built-in webcam. (2) If you have the QR code saved as an image or screenshot on your computer, use the <strong>Upload Image</strong> tab to upload and scan it directly.</div>
+        </div>
+        <div class="faq-item" role="listitem">
+          <button class="faq-question" aria-expanded="false">What image formats are supported for QR code scanning<i class="icon faq-icon">+</i></button>
+          <div class="faq-answer">Our QR image scanner supports JPG/JPEG, PNG, GIF, WebP, BMP, and SVG image formats. You can also scan QR codes from PDF screenshots by first taking a screenshot of the PDF page and uploading it.</div>
+        </div>
+        <div class="faq-item" role="listitem">
+          <button class="faq-question" aria-expanded="false">Why is my camera not working with the QR scanner<i class="icon faq-icon">+</i></button>
+          <div class="faq-answer">Common causes: (1) Browser permission denied  click the camera icon in your address bar and allow access. (2) Using HTTP instead of HTTPS camera access requires a secure connection. (3) Another app is using the camera close other apps first. (4) Browser too old update your browser to the latest version.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="footer-logo" aria-label="QRScanPro Home">
+          <img src="images/qr_code_scanner.avif" alt="QR Code Scanner Logo">
+          QrCodeScan
+        </a>
+        <p class="footer-desc">Free online QR code and barcode scanner. Scan, generate, and decode QR codes instantly without any app or signup. 100% private all processing happens in your browser.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Tools</h4>
+        <ul class="footer-links">
+          <li><a href="/image-qr-scanner">Image QR Scanner</a></li>
+          <li><a href="/wifi-qr-scanner">WiFi QR Scanner</a></li>
+          <li><a href="/barcode-scanner">Barcode Scanner</a></li>
+          <li><a href="/qr-code-generator">QR Code Generator</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul class="footer-links">
+          <li><a href="/about-us">About Us</a></li>
+          <li><a href="/contact-us">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul class="footer-links">
+          <li><a href="/privacy-policy">Privacy Policy</a></li>
+          <li><a href="/terms-of-service">Terms of Service</a></li>
+          <li><a href="/disclaimer">Disclaimer</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 QRCodeScan. All rights reserved.</span>
+      <span><a href="/privacy-policy">Privacy</a> · <a href="/terms-of-service">Terms</a> · <a href="/disclaimer">Disclaimer</a> · <a href="sitemap.xml">Sitemap</a></span>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== SCRIPTS ===== -->
+<script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+<script src="js/nav.js"></script>
+<script>
+// ============================================
+// Homepage Scanner Logic
+// ============================================
+var scanHistory = JSON.parse(localStorage.getItem('qrScanHistory') || '[]');
+var lastResult = '';
+var cameraStream = null;
+var camInterval = null;
+var camFacing = 'environment';
+
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-panel').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+  btn.setAttribute('aria-selected','true');
+  if (name !== 'webcam') stopWebcamScan();
+}
+
+function startWebcamScan() {
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+    showStatus('error', 'Camera not supported in this browser. Please use Chrome, Firefox, or Safari.');
+    return;
+  }
+  document.getElementById('webcam-placeholder').style.display = 'none';
+  document.getElementById('webcam-container').style.display = 'block';
+  document.getElementById('webcam-controls').style.display = 'block';
+
+  var constraints = { video: { facingMode: { ideal: camFacing }, width: { ideal: 1280 }, height: { ideal: 720 } } };
+  navigator.mediaDevices.getUserMedia(constraints).then(function(s) {
+    cameraStream = s;
+    var vid = document.getElementById('qr-video');
+    vid.srcObject = s;
+    vid.setAttribute('playsinline', '');
+    vid.play();
+    startScanLoop();
+  }).catch(function(err) {
+    document.getElementById('webcam-placeholder').style.display = 'block';
+    document.getElementById('webcam-container').style.display = 'none';
+    document.getElementById('webcam-controls').style.display = 'none';
+    var msg = err.name === 'NotAllowedError' ? 'Camera permission denied. Please allow camera access.' :
+              err.name === 'NotFoundError' ? 'No camera found on this device.' :
+              'Camera error: ' + err.message;
+    showStatus('error', msg);
+  });
+}
+
+function startScanLoop() {
+  var vid = document.getElementById('qr-video');
+  var canvas = document.createElement('canvas');
+  var ctx = canvas.getContext('2d');
+  camInterval = setInterval(function() {
+    if (!vid.videoWidth) return;
+    canvas.width = vid.videoWidth;
+    canvas.height = vid.videoHeight;
+    ctx.drawImage(vid, 0, 0, canvas.width, canvas.height);
+    var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    if (typeof jsQR !== 'undefined') {
+      var result = jsQR(imageData.data, canvas.width, canvas.height, { inversionAttempts: 'dontInvert' });
+      if (result && result.data && result.data !== lastResult) {
+        lastResult = result.data;
+        displayResult(result.data, 'QR_CODE');
+        // Visual feedback
+        var line = document.getElementById('scan-line');
+        if (line) { line.style.background = '#10b981'; setTimeout(function(){ line.style.background = '#1a56db'; }, 1000); }
+      }
+    }
+  }, 250);
+}
+
+function stopWebcamScan() {
+  if (camInterval) { clearInterval(camInterval); camInterval = null; }
+  if (cameraStream) { cameraStream.getTracks().forEach(function(t){ t.stop(); }); cameraStream = null; }
+  lastResult = '';
+  document.getElementById('webcam-container').style.display = 'none';
+  document.getElementById('webcam-placeholder').style.display = 'block';
+  document.getElementById('webcam-controls').style.display = 'none';
+}
+
+function switchCamera() {
+  camFacing = camFacing === 'environment' ? 'user' : 'environment';
+  stopWebcamScan();
+  setTimeout(startWebcamScan, 300);
+}
+
+function handleDrop(e) {
+  e.preventDefault();
+  document.getElementById('drop-zone').classList.remove('dragover');
+  var file = e.dataTransfer.files[0];
+  if (file && file.type.startsWith('image/')) processImageFile(file);
+}
+function handleDragOver(e) { e.preventDefault(); document.getElementById('drop-zone').classList.add('dragover'); }
+function handleDragLeave(e) { document.getElementById('drop-zone').classList.remove('dragover'); }
+function handleFileInput(e) {
+  var file = e.target.files[0];
+  if (file) processImageFile(file);
+}
+
+function processImageFile(file) {
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    var img = document.getElementById('image-preview');
+    img.src = e.target.result;
+    document.getElementById('image-preview-box').style.display = 'block';
+    scanImageFromDataUrl(e.target.result);
+  };
+  reader.readAsDataURL(file);
+}
+
+function scanFromUrl() {
+  var url = document.getElementById('url-input').value.trim();
+  if (!url) { showStatus('error', 'Please enter an image URL'); return; }
+  showStatus('info', 'Loading image...');
+  // Use a proxy-free method — load image directly
+  var img = new Image();
+  img.crossOrigin = 'anonymous';
+  img.onload = function() {
+    var canvas = document.createElement('canvas');
+    canvas.width = img.naturalWidth; canvas.height = img.naturalHeight;
+    var ctx = canvas.getContext('2d');
+    ctx.drawImage(img, 0, 0);
+    scanFromCanvas(canvas);
+  };
+  img.onerror = function() { showStatus('error', 'Could not load image from URL. Please try uploading the image directly.'); };
+  img.src = url;
+}
+
+function scanImageFromDataUrl(dataUrl) {
+  var img = new Image();
+  img.onload = function() {
+    var canvas = document.createElement('canvas');
+    canvas.width = img.naturalWidth; canvas.height = img.naturalHeight;
+    var ctx = canvas.getContext('2d');
+    ctx.drawImage(img, 0, 0);
+    scanFromCanvas(canvas);
+  };
+  img.src = dataUrl;
+}
+
+function scanFromCanvas(canvas) {
+  var ctx = canvas.getContext('2d');
+  var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  if (typeof jsQR !== 'undefined') {
+    var result = jsQR(imageData.data, canvas.width, canvas.height, { inversionAttempts: 'attemptBoth' });
+    if (result) { displayResult(result.data, 'QR_CODE'); }
+    else { showStatus('error', 'No QR code detected in this image. Try a clearer, higher-resolution image with the QR code fully visible.'); }
+  } else {
+    showStatus('error', 'Scanner library not loaded. Please refresh and try again.');
+  }
+}
+
+function displayResult(text, format) {
+  var type = detectQRType(text);
+  var box = document.getElementById('result-box');
+  var label = document.getElementById('result-label');
+  var resultText = document.getElementById('result-text');
+  var badge = document.getElementById('qr-type-badge');
+  var actions = document.getElementById('result-actions');
+  var openBtn = document.getElementById('open-url-btn');
+
+  box.className = 'result-box success';
+  label.textContent = 'SCANNED RESULT';
+  label.className = 'result-label success';
+  badge.textContent = type.icon + ' ' + type.type;
+  badge.style.display = 'inline-flex';
+  badge.style.background = type.color || '#1a56db';
+  resultText.innerHTML = /^https?:\/\//i.test(text.trim()) ?
+    '<a href="' + text.trim() + '" target="_blank" rel="noopener noreferrer">' + text.trim() + '</a>' :
+    text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  resultText.style.color = '';
+  resultText.style.fontStyle = '';
+  actions.style.display = 'flex';
+  openBtn.style.display = /^https?:\/\//i.test(text.trim()) ? 'inline-flex' : 'none';
+
+  addToHistory(text, type);
+}
+
+function showStatus(type, msg) {
+  var box = document.getElementById('result-box');
+  var label = document.getElementById('result-label');
+  var resultText = document.getElementById('result-text');
+  var badge = document.getElementById('qr-type-badge');
+  var actions = document.getElementById('result-actions');
+  box.className = 'result-box ' + (type === 'error' ? 'error' : '');
+  label.textContent = type === 'error' ? 'ERROR' : 'STATUS';
+  label.className = 'result-label ' + (type === 'error' ? 'error' : '');
+  badge.style.display = 'none';
+  resultText.textContent = msg;
+  resultText.style.color = type === 'error' ? '#ef4444' : '#4b5563';
+  resultText.style.fontStyle = 'normal';
+  actions.style.display = 'none';
+}
+
+function copyResult() {
+  var text = document.getElementById('result-text').textContent;
+  copyToClipboard(text);
+}
+function openResultUrl() {
+  var link = document.getElementById('result-text').querySelector('a');
+  if (link) window.open(link.href, '_blank', 'noopener');
+}
+function clearResult() {
+  var box = document.getElementById('result-box');
+  box.className = 'result-box';
+  document.getElementById('result-label').textContent = 'Result';
+  document.getElementById('result-label').className = 'result-label';
+  document.getElementById('result-text').textContent = 'Point your camera at a QR code or upload an image to see results here...';
+  document.getElementById('result-text').style.color = '#9ca3af';
+  document.getElementById('result-text').style.fontStyle = 'italic';
+  document.getElementById('result-actions').style.display = 'none';
+  document.getElementById('qr-type-badge').style.display = 'none';
+}
+
+function addToHistory(text, type) {
+  var entry = { text: text, type: type.type, icon: type.icon, time: new Date().toLocaleTimeString() };
+  scanHistory.unshift(entry);
+  if (scanHistory.length > 50) scanHistory.pop();
+  localStorage.setItem('qrScanHistory', JSON.stringify(scanHistory));
+  renderHistory();
+}
+
+function renderHistory() {
+  var list = document.getElementById('history-list');
+  var empty = document.getElementById('history-empty');
+  document.getElementById('history-count').textContent = scanHistory.length + ' scan' + (scanHistory.length !== 1 ? 's' : '');
+  if (scanHistory.length === 0) { if(empty) empty.style.display='block'; list.innerHTML = '<div style="padding:20px;text-align:center;color:#9ca3af;font-size:0.875rem;" id="history-empty">No scans yet — results appear here automatically</div>'; return; }
+  list.innerHTML = scanHistory.slice(0, 20).map(function(item) {
+    var short = item.text.length > 50 ? item.text.slice(0, 50) + '…' : item.text;
+    return '<div class="history-item"><span style="font-size:1rem;">' + item.icon + '</span><span class="history-text" title="' + item.text.replace(/"/g,'&quot;') + '">' + short + '</span><span class="history-time">' + item.time + '</span><button class="btn-icon btn btn-sm" onclick="copyToClipboard(\'' + item.text.replace(/'/g,"\\'").replace(/\n/g,' ') + '\')" title="Copy" style="padding:4px 8px;font-size:0.75rem;">📋</button></div>';
+  }).join('');
+}
+
+function clearHistory() {
+  scanHistory = [];
+  localStorage.removeItem('qrScanHistory');
+  renderHistory();
+}
+
+function exportHistory(fmt) {
+  if (!scanHistory.length) { showToast('No history to export', 'error'); return; }
+  var content, type, ext;
+  if (fmt === 'csv') {
+    content = 'Type,Content,Time\n' + scanHistory.map(function(i){ return '"' + i.type + '","' + i.text.replace(/"/g,'""') + '","' + i.time + '"'; }).join('\n');
+    type = 'text/csv'; ext = 'csv';
+  } else {
+    content = JSON.stringify(scanHistory, null, 2);
+    type = 'application/json'; ext = 'json';
+  }
+  var blob = new Blob([content], {type: type});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url; a.download = 'qr-scan-history.' + ext; a.click();
+  URL.revokeObjectURL(url);
+}
+
+function detectQRType(text) {
+  if (!text) return { type: 'Unknown', icon: '❓', color: '#6b7280' };
+  text = text.trim();
+  if (/^https?:\/\//i.test(text)) return { type: 'URL', icon: '🔗', color: '#1a56db' };
+  if (/^WIFI:/i.test(text)) return { type: 'WiFi', icon: '📶', color: '#0ea5e9' };
+  if (/^BEGIN:VCARD/i.test(text)) return { type: 'vCard', icon: '👤', color: '#7c3aed' };
+  if (/^smsto:/i.test(text) || /^sms:/i.test(text)) return { type: 'SMS', icon: '💬', color: '#10b981' };
+  if (/^tel:/i.test(text)) return { type: 'Phone', icon: '📞', color: '#f59e0b' };
+  if (/^mailto:/i.test(text)) return { type: 'Email', icon: '✉️', color: '#ef4444' };
+  if (/^BEGIN:VEVENT/i.test(text)) return { type: 'Event', icon: '📅', color: '#8b5cf6' };
+  if (/^geo:/i.test(text)) return { type: 'Location', icon: '📍', color: '#f97316' };
+  return { type: 'Text', icon: '📄', color: '#6b7280' };
+}
+
+// Init
+renderHistory();
+
+// Keyboard accessible drop zone
+document.getElementById('drop-zone').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); document.getElementById('file-input').click(); }
+});
+</script>
+</body>
+</html>

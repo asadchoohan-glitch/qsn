@@ -1,0 +1,16 @@
+{
+  "name": "scanner",
+  "version": "1.0.0",
+  "description": "A complete, production-ready multi-page static website for QR code and barcode utilities. Built to outperform [scanqr.org](https://scanqr.org/) with better SEO, faster loading, more features, and full mobile-first responsive design.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "vite": "^8.0.8"
+  }
+}

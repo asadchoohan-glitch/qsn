@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Barcode Scanner Online — Scan Barcodes from Camera or Image | QRCodeScan</title>
+  <meta name="description" content="Scan any barcode online using your webcam or upload a product image. Supports EAN-13, EAN-8, UPC-A, UPC-E, Code 128, Code 39, ITF, Codabar, and QR codes.">
+  <meta name="keywords" content="barcode scanner online, scan barcode online, barcode reader online, online barcode scanner free, barcode scanner from image, ean-13 scanner, upc barcode scanner, code 128 scanner, barcode scanner no app, scan barcode from photo, product barcode scanner online, barcode lookup online, scan barcode laptop, barcode scanner webcam, read barcode from image">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://qrcodescann.com/barcode-scanner">
+  <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+  <link rel="manifest" href="/favicon/site.webmanifest" />
+  <meta property="og:title" content="Barcode Scanner Online — Scan Barcodes from Camera or Image | QRCodeScan">
+  <meta property="og:description" content="Scan any barcode online using your webcam or upload a product image. Supports EAN-13, EAN-8, UPC-A, UPC-E, Code 128, Code 39, ITF, Codabar, and QR codes.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://qrcodescann.com/barcode-scanner">
+  <meta property="og:image" content="https://qrcodescann.com/images/barcode_scanner.avif">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Barcode Scanner Online — Scan Barcodes from Camera or Image | QRCodeScan">
+  <meta name="twitter:description" content="Scan any barcode online using your webcam or upload a product image. Supports EAN-13, EAN-8, UPC-A, UPC-E, Code 128, Code 39, ITF, Codabar, and QR codes.">
+  <meta name="twitter:image" content="https://qrcodescann.com/images/barcode_scanner.avif">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"WebApplication","name":"QRCodeScan - Online Barcode Scanner","description":"Free online barcode scanner. Supports EAN-13, EAN-8, UPC-A, UPC-E, Code 128, Code 39, ITF, Codabar formats. Use webcam or upload images.","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar" role="navigation" aria-label="Main navigation">
+  <div class="container">
+    <a href="/" class="nav-logo" aria-label="QRScanPro Home">
+      <img src="images/qr_code_scanner.avif" alt="QR Code Scanner Logo" style="height: 36px; width: auto; object-fit: contain;">
+      <span>QR<em>Code</em>Scan</span>
+    </a>
+    <ul class="nav-menu" id="nav-menu" role="menubar">
+      <li role="none"><a href="/image-qr-scanner" role="menuitem">Image Qr Scanner</a></li>
+      <li role="none"><a href="/wifi-qr-scanner" role="menuitem">WiFi QR Scanner</a></li>
+      <li role="none"><a href="/barcode-scanner" role="menuitem">Barcode Scanner</a></li>
+      <li role="none"><a href="/qr-code-generator" class="nav-cta" role="menuitem">Qr Code Generator →</a></li>
+    </ul>
+    <button class="nav-toggle" id="nav-toggle" aria-controls="nav-menu" aria-expanded="false" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<section class="page-hero text-center" aria-labelledby="hero-h1">
+  <div class="container">
+    <h1 id="hero-h1">Barcode Scanner</h1>
+    <p style="margin: 0 auto;">Scan any barcode online using your webcam or upload a product image. Supports EAN-13, EAN-8, UPC-A, UPC-E, Code 128, Code 39, ITF, Codabar, and QR codes. View scan history, export as CSV, and look up product information no app required.</p>
+  </div>
+</section>
+
+<section class="section-sm">
+  <div class="container">
+    <div class="tool-card">
+      <div class="tool-tabs" role="tablist">
+        <button class="tab-btn active" onclick="switchTab('webcam', this)" role="tab" aria-selected="true">📷 Camera Scanner</button>
+        <button class="tab-btn" onclick="switchTab('image', this)" role="tab" aria-selected="false">🖼️ Upload Image</button>
+        <button class="tab-btn" onclick="switchTab('history', this)" role="tab" aria-selected="false">📋 Scan History</button>
+      </div>
+
+      <!-- WEBCAM TAB -->
+      <div class="tab-panel active" id="tab-webcam">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;">
+          <div>
+            <div id="bc-cam-placeholder" style="background:#f9fafb;border:2px dashed #e5e7eb;border-radius:12px;padding:48px 24px;text-align:center;">
+              <div style="font-size:3rem;margin-bottom:12px;">📊</div>
+              <p style="font-weight:600;color:#374151;margin-bottom:6px;">Live Barcode Scanner</p>
+              <p style="font-size:0.875rem;color:#6b7280;margin-bottom:20px;">Click below and point your camera at any barcode to scan it in real time</p>
+              <button class="btn btn-primary btn-lg" onclick="startBarcodeCamera()">📷 Start Camera</button>
+            </div>
+            <div id="bc-cam-wrapper" class="webcam-container" style="display:none;">
+              <video id="bc-video" autoplay muted playsinline webkit-playsinline></video>
+              <div class="scan-overlay">
+                <div style="width:80%;height:4px;background:rgba(255,255,255,0.6);border-radius:2px;position:relative;">
+                  <div style="position:absolute;left:-8px;top:-8px;width:8px;height:20px;border-top:3px solid #fff;border-left:3px solid #fff;border-radius:1px;"></div>
+                  <div style="position:absolute;right:-8px;top:-8px;width:8px;height:20px;border-top:3px solid #fff;border-right:3px solid #fff;border-radius:1px;"></div>
+                  <div style="position:absolute;left:-8px;bottom:-8px;width:8px;height:20px;border-bottom:3px solid #fff;border-left:3px solid #fff;border-radius:1px;"></div>
+                  <div style="position:absolute;right:-8px;bottom:-8px;width:8px;height:20px;border-bottom:3px solid #fff;border-right:3px solid #fff;border-radius:1px;"></div>
+                </div>
+              </div>
+            </div>
+            <div id="bc-cam-controls" style="display:none;margin-top:12px;display:none;">
+              <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                <button class="btn btn-outline btn-sm" onclick="stopBarcodeCamera()">⛔ Stop</button>
+                <button class="btn btn-outline btn-sm" onclick="switchBarcodeCamera()">🔄 Switch Camera</button>
+              </div>
+            </div>
+
+            <!-- Format selector -->
+            <div style="margin-top:16px;">
+              <div style="font-size:0.82rem;color:var(--text-muted);font-weight:600;margin-bottom:8px;">SUPPORTED BARCODE FORMATS</div>
+              <div style="display:flex;flex-wrap:wrap;gap:6px;">
+                <span class="badge-sm">EAN-13</span><span class="badge-sm">EAN-8</span><span class="badge-sm">UPC-A</span><span class="badge-sm">UPC-E</span><span class="badge-sm">Code 128</span><span class="badge-sm">Code 39</span><span class="badge-sm">ITF</span><span class="badge-sm">Codabar</span><span class="badge-sm">QR Code</span><span class="badge-sm">Data Matrix</span>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h2 class="tool-title" style="font-size:1.05rem;">Scan Result</h2>
+            <div id="bc-status" class="alert alert-info" style="margin-bottom:14px;">
+              <span>ℹ️</span><span>Start the camera or upload an image to scan barcodes. Align the barcode within the scanning area.</span>
+            </div>
+            <div id="bc-result" style="display:none;">
+              <div class="result-box success" id="bc-result-box">
+                <div class="result-header">
+                  <span class="result-label success">BARCODE DECODED</span>
+                  <span class="barcode-type-tag" id="bc-format-badge"></span>
+                </div>
+                <div class="result-text" id="bc-result-text" style="font-family:monospace;font-size:1.1rem;font-weight:700;"></div>
+                <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
+                  <button class="btn btn-primary btn-sm" onclick="copyBarcodeResult()">📋 Copy</button>
+                  <button class="btn btn-sm btn-outline" id="bc-lookup-btn" onclick="lookupBarcode()" style="display:none;">🔍 Product Lookup</button>
+                  <button class="btn btn-sm btn-outline" onclick="clearBarcodeResult()">✕ Clear</button>
+                </div>
+              </div>
+
+              <!-- Product Info -->
+              <div id="bc-product-info" style="display:none;margin-top:14px;padding:16px;background:var(--bg-light);border:1px solid var(--border);border-radius:10px;">
+                <h4 style="font-size:0.95rem;margin-bottom:10px;">📦 Product Information</h4>
+                <div id="bc-product-details"></div>
+              </div>
+            </div>
+
+            <!-- Quick Stats -->
+            <div style="margin-top:20px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;text-align:center;">
+              <div style="padding:12px;background:var(--bg-light);border-radius:8px;border:1px solid var(--border);">
+                <div style="font-size:1.3rem;font-weight:800;color:var(--primary);" id="total-scans-count">0</div>
+                <div style="font-size:0.75rem;color:var(--text-muted);">Total Scans</div>
+              </div>
+              <div style="padding:12px;background:var(--bg-light);border-radius:8px;border:1px solid var(--border);">
+                <div style="font-size:1.3rem;font-weight:800;color:var(--success);" id="unique-scans-count">0</div>
+                <div style="font-size:0.75rem;color:var(--text-muted);">Unique Codes</div>
+              </div>
+              <div style="padding:12px;background:var(--bg-light);border-radius:8px;border:1px solid var(--border);">
+                <div style="font-size:1.3rem;font-weight:800;color:var(--accent);" id="session-count">0</div>
+                <div style="font-size:0.75rem;color:var(--text-muted);">This Session</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- IMAGE TAB -->
+      <div class="tab-panel" id="tab-image">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;">
+          <div>
+            <h2 class="tool-title" style="font-size:1.05rem;">Upload Barcode Image</h2>
+            <div class="drop-zone" id="bc-drop" onclick="document.getElementById('bc-file-input').click()" ondrop="handleBarcodeImageDrop(event)" ondragover="e=>{e.preventDefault();document.getElementById('bc-drop').classList.add('dragover');}" ondragleave="document.getElementById('bc-drop').classList.remove('dragover')" role="button" tabindex="0">
+              <div class="drop-zone-icon">📁</div>
+              <p><strong>Drop barcode image here</strong></p>
+              <p>or click to browse</p>
+              <small>JPG, PNG, GIF, WebP, BMP • Product photos welcome</small>
+              <input type="file" id="bc-file-input" accept="image/*" onchange="handleBarcodeImageSelect(event)">
+            </div>
+            <div id="bc-img-preview-box" style="display:none;margin-top:12px;text-align:center;">
+              <img id="bc-img-preview" src="" alt="Barcode image preview" style="max-height:200px;border-radius:8px;border:1px solid var(--border);">
+            </div>
+          </div>
+          <div>
+            <h2 class="tool-title" style="font-size:1.05rem;">Result</h2>
+            <div id="bc-img-status" class="alert alert-info">
+              <span>ℹ️</span><span>Upload a product image or barcode photo to decode it.</span>
+            </div>
+            <div id="bc-img-result" style="display:none;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HISTORY TAB -->
+      <div class="tab-panel" id="tab-history">
+        <div>
+          <div class="export-bar">
+            <strong id="history-stat">0 barcodes scanned</strong>
+            <div style="display:flex;gap:8px;">
+              <button class="btn btn-sm btn-outline" onclick="exportBarcodeHistory('csv')">⬇ CSV</button>
+              <button class="btn btn-sm btn-outline" onclick="exportBarcodeHistory('json')">⬇ JSON</button>
+              <button class="btn btn-sm btn-outline" onclick="clearBarcodeHistory()">🗑 Clear All</button>
+            </div>
+          </div>
+          <div id="barcode-history-table" style="border:1px solid var(--border);border-radius:10px;overflow:hidden;">
+            <div style="padding:24px;text-align:center;color:var(--text-muted);">No barcode history yet. Start scanning to see results here.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SEO Intro -->
+<section class="section" style="background:var(--bg-light);">
+  <div class="container">
+    <div style="max-width:860px;margin:0 auto;">
+      <h2>Free Online Barcode Scanner</h2>
+      <p style="margin-top:16px;font-size:1.05rem;">Our <strong>barcode scanner</strong> lets you read product barcodes, inventory codes, and shipping labels directly from your webcam or by uploading an image no dedicated barcode scanner app required. Whether you need to decode an <strong>EAN-13 barcode</strong> from a product package, scan a <strong>Code 128 barcode</strong> from a shipping label, or verify a <strong>UPC-A code</strong> on retail packaging, QRCodeScan handles it all from any modern web browser. Built on Google's ZXing multiformat barcode detection library, our Qr Code Scanner supports over 10 barcode symbologies and provides instant results with format identification. All scan history is automatically saved and can be exported as CSV for inventory management, price comparison research, or retail workflows.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Barcode Formats -->
+<section class="section">
+  <div class="container">
+    <h2 class="mb-8 text-center">Supported Barcode Formats & Use Cases</h2>
+    <div class="table-wrapper">
+      <table class="data-table">
+        <thead><tr><th>Format</th><th>Digits</th><th>Primary Use</th><th>Common On</th></tr></thead>
+        <tbody>
+          <tr><td><strong>EAN-13</strong></td><td>13 digits</td><td>Retail product identification worldwide</td><td>Product packages, books (ISBN), magazines</td></tr>
+          <tr><td><strong>EAN-8</strong></td><td>8 digits</td><td>Small product packaging</td><td>Small items where EAN-13 doesn't fit</td></tr>
+          <tr><td><strong>UPC-A</strong></td><td>12 digits</td><td>North American retail products</td><td>US/Canada grocery, retail products</td></tr>
+          <tr><td><strong>UPC-E</strong></td><td>8 digits (compressed)</td><td>Small retail packaging</td><td>Small US retail products</td></tr>
+          <tr><td><strong>Code 128</strong></td><td>Variable</td><td>Logistics, shipping, inventory</td><td>Shipping labels, supply chain, GS1</td></tr>
+          <tr><td><strong>Code 39</strong></td><td>Variable</td><td>Industrial, automotive, defense</td><td>Defense, automotive parts, healthcare</td></tr>
+          <tr><td><strong>ITF (Interleaved 2of5)</strong></td><td>Even digits</td><td>Carton/pallet shipping</td><td>Corrugated cardboard boxes</td></tr>
+          <tr><td><strong>Codabar</strong></td><td>Variable</td><td>Libraries, blood banks, FedEx</td><td>Library books, medical specimens</td></tr>
+          <tr><td><strong>QR Code</strong></td><td>Up to 4296 chars</td><td>All-purpose 2D code</td><td>Marketing, payments, URLs</td></tr>
+          <tr><td><strong>Data Matrix</strong></td><td>Up to 3116 chars</td><td>Small components, pharma</td><td>Electronics, medicine packaging</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- Features -->
+<section class="section" style="background:var(--bg-light);">
+  <div class="container">
+    <h2 class="mb-8 text-center">Barcode Scanner Features</h2>
+    <div class="grid-3">
+      <div class="feature-item"><div class="feature-icon">📷</div><div><h3>Live Camera Scanning</h3><p>Real-time barcode detection from webcam. Works with front and rear cameras. Automatically detects and decodes barcodes as they enter the frame.</p></div></div>
+      <div class="feature-item"><div class="feature-icon">🖼️</div><div><h3>Image Upload Scanning</h3><p>Upload product photos or screenshots. Perfect for decoding barcodes in e-commerce listings, catalogs, or inventory documents.</p></div></div>
+      <div class="feature-item"><div class="feature-icon">📊</div><div><h3>Format Identification</h3><p>Automatically identifies the barcode type (EAN-13, UPC, Code 128, etc.) alongside the decoded value for easy categorization.</p></div></div>
+    </div>
+  </div>
+</section>
+<!-- FAQ -->
+<section class="section" style="background:var(--bg-light);">
+  <div class="container">
+    <div style="max-width:780px;margin:0 auto;">
+      <h2 class="mb-6">Frequently Asked Questions</h2>
+      <div>
+        <div class="faq-item"><button class="faq-question">What barcode types can this scanner read<i class="icon faq-icon">+</i></button><div class="faq-answer">Our QrCodeScan barcode scanner supports: EAN-13, EAN-8, UPC-A, UPC-E, Code 128, Code 39, Code 93, ITF (Interleaved 2 of 5), Codabar, QR Code, Data Matrix, PDF417, and Aztec. This covers the most common 1D product barcodes and 2D matrix codes used worldwide.</div></div>
+        <div class="faq-item"><button class="faq-question">Can I scan barcodes from a product photo or image<i class="icon faq-icon">+</i></button><div class="faq-answer">Yes Use the <strong>Upload Image</strong> tab to upload a product photo. The scanner will detect and decode any barcode in the image. For best results, ensure the barcode is clearly visible and not blurry. High contrast between barcode bars and background improves accuracy.</div></div>
+        <div class="faq-item"><button class="faq-question">How do I scan a barcode using my phone camera<i class="icon faq-icon">+</i></button><div class="faq-answer">Open QrCodeScan in your phone's browser (Chrome for Android, Safari for iPhone). Use <strong>Barcode Scanner</strong> tab and tap <strong>Start Camera</strong>. Allow camera permission when prompted. Hold your phone steady and point the camera at the barcode until it's detected automatically.</div></div>
+        <div class="faq-item"><button class="faq-question">Can I export my scan history<i class="icon faq-icon">+</i></button><div class="faq-answer">Yes. Go to the <strong>Scan History</strong> tab to see all your scans from the current session and any previously saved scans. Click <strong>Export CSV</strong> to download the history as a spreadsheet-compatible file, or <strong>Export JSON</strong> for use in applications and convert it json to excel , pdf or word.</div></div>
+        <div class="faq-item"><button class="faq-question">Why can't the scanner read my barcode<i class="icon faq-icon">+</i></button><div class="faq-answer">Common causes: (1) Image is too blurry ensure barcode is in focus, (2) Poor lighting barcodes need good contrast to scan, (3) Barcode is damaged or printed poorly, (4) Unsupported format very old or specialized formats may not be supported, (5) Barcode is too small in the image zoom in or crop closer.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Related Tools -->
+<section class="section">
+  <div class="container">
+    <h2 class="mb-6">Related Tools</h2>
+    <div class="related-tools">
+      <a href="/" class="related-tool-card"><div class="related-tool-icon" style="background:#e8f0fe;">📷</div><div><h4>QR Code Scanner</h4><p>Scan QR codes from webcam or image</p></div></a>
+      <a href="/image-qr-scanner" class="related-tool-card"><div class="related-tool-icon" style="background:#f0fdf4;">🖼️</div><div><h4>Image QR Scanner</h4><p>Read QR codes from uploaded images</p></div></a>
+      <a href="/qr-code-generator" class="related-tool-card"><div class="related-tool-icon" style="background:#ede9fe;">⚙️</div><div><h4>QR Code Generator</h4><p>Create custom QR codes with logo</p></div></a>
+      <a href="/wifi-qr-scanner" class="related-tool-card"><div class="related-tool-icon" style="background:#ecfdf5;">📶</div><div><h4>WiFi QR Scanner</h4><p>Decode WiFi network QR codes</p></div></a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="footer-logo" aria-label="QRScanPro Home">
+          <img src="images/qr_code_scanner.avif" alt="QR Code Scanner Logo">
+          QrCodeScan
+        </a>
+        <p class="footer-desc">Free online QR code and barcode scanner. Scan, generate, and decode QR codes instantly without any app or signup. 100% private all processing happens in your browser.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Tools</h4>
+        <ul class="footer-links">
+          <li><a href="/image-qr-scanner">Image QR Scanner</a></li>
+          <li><a href="/wifi-qr-scanner">WiFi QR Scanner</a></li>
+          <li><a href="/barcode-scanner">Barcode Scanner</a></li>
+          <li><a href="/qr-code-generator">QR Code Generator</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul class="footer-links">
+          <li><a href="/about-us">About Us</a></li>
+          <li><a href="/contact-us">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul class="footer-links">
+          <li><a href="/privacy-policy">Privacy Policy</a></li>
+          <li><a href="/terms-of-service">Terms of Service</a></li>
+          <li><a href="/disclaimer">Disclaimer</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 QRCodeScan. All rights reserved.</span>
+      <span><a href="/privacy-policy">Privacy</a> · <a href="/terms-of-service">Terms</a> · <a href="/disclaimer">Disclaimer</a> · <a href="sitemap.xml">Sitemap</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+<script src="js/nav.js"></script>
+<script>
+var barcodeHistory = JSON.parse(localStorage.getItem('barcodeHistory') || '[]');
+var bcCamStream = null, bcCamInterval = null, bcCamFacing = 'environment';
+var sessionCount = 0, lastBarcode = '';
+
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-panel').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
+  document.getElementById('tab-'+name).classList.add('active');
+  btn.classList.add('active'); btn.setAttribute('aria-selected','true');
+  if (name !== 'webcam') stopBarcodeCamera();
+  if (name === 'history') renderHistoryTable();
+}
+
+function startBarcodeCamera() {
+  if (!navigator.mediaDevices) { showToast('Camera not supported','error'); return; }
+  document.getElementById('bc-cam-placeholder').style.display='none';
+  document.getElementById('bc-cam-wrapper').style.display='block';
+  document.getElementById('bc-cam-controls').style.display='block';
+  var constraints = {video:{facingMode:{ideal:bcCamFacing},width:{ideal:1280},height:{ideal:720}}};
+  navigator.mediaDevices.getUserMedia(constraints).then(function(s){
+    bcCamStream=s;
+    var vid=document.getElementById('bc-video');
+    vid.srcObject=s; vid.play();
+    var c=document.createElement('canvas'); var ctx=c.getContext('2d');
+    bcCamInterval=setInterval(function(){
+      if(!vid.videoWidth) return;
+      c.width=vid.videoWidth; c.height=vid.videoHeight;
+      ctx.drawImage(vid,0,0);
+      var d=ctx.getImageData(0,0,c.width,c.height);
+      if (typeof jsQR !== 'undefined') {
+        var r=jsQR(d.data,c.width,c.height,{inversionAttempts:'dontInvert'});
+        if (r && r.data && r.data !== lastBarcode) {
+          lastBarcode=r.data;
+          showBarcodeResult(r.data,'QR_CODE');
+          sessionCount++;
+        }
+      }
+    }, 300);
+    setBcStatus('info','Camera active. Point at barcode...');
+  }).catch(function(err){
+    document.getElementById('bc-cam-placeholder').style.display='block';
+    document.getElementById('bc-cam-wrapper').style.display='none';
+    setBcStatus('error', err.name==='NotAllowedError'?'Camera permission denied.':'Camera error: '+err.message);
+  });
+}
+
+function stopBarcodeCamera() {
+  if (bcCamInterval) { clearInterval(bcCamInterval); bcCamInterval=null; }
+  if (bcCamStream) { bcCamStream.getTracks().forEach(function(t){t.stop();}); bcCamStream=null; }
+  lastBarcode='';
+  document.getElementById('bc-cam-placeholder').style.display='block';
+  document.getElementById('bc-cam-wrapper').style.display='none';
+  document.getElementById('bc-cam-controls').style.display='none';
+}
+
+function switchBarcodeCamera() {
+  bcCamFacing = bcCamFacing==='environment'?'user':'environment';
+  stopBarcodeCamera();
+  setTimeout(startBarcodeCamera, 300);
+}
+
+function showBarcodeResult(value, format) {
+  document.getElementById('bc-status').style.display='none';
+  document.getElementById('bc-result').style.display='block';
+  document.getElementById('bc-result-text').textContent = value;
+  document.getElementById('bc-format-badge').textContent = format || 'BARCODE';
+
+  var isProduct = /^\d{8,14}$/.test(value);
+  document.getElementById('bc-lookup-btn').style.display = isProduct ? 'inline-flex' : 'none';
+
+  addBarcodeHistory(value, format);
+  updateStats();
+  showToast('Barcode scanned: ' + value.slice(0,20) + (value.length>20?'…':''), 'success');
+}
+
+function copyBarcodeResult() { copyToClipboard(document.getElementById('bc-result-text').textContent); }
+function clearBarcodeResult() {
+  document.getElementById('bc-result').style.display='none';
+  document.getElementById('bc-status').style.display='flex';
+  setBcStatus('info','Start the camera or upload an image to scan barcodes.');
+  lastBarcode='';
+}
+
+function lookupBarcode() {
+  var code = document.getElementById('bc-result-text').textContent;
+  window.open('https://www.barcodelookup.com/'+code, '_blank', 'noopener');
+}
+
+function setBcStatus(type, msg) {
+  var el = document.getElementById('bc-status');
+  el.style.display='flex';
+  el.className='alert alert-'+(type==='error'?'error':type==='success'?'success':'info');
+  el.innerHTML='<span>'+(type==='error'?'❌':type==='success'?'✅':'ℹ️')+'</span><span>'+msg+'</span>';
+}
+
+// IMAGE
+function handleBarcodeImageDrop(e) {
+  e.preventDefault();
+  document.getElementById('bc-drop').classList.remove('dragover');
+  var file=e.dataTransfer.files[0];
+  if(file&&file.type.startsWith('image/')) processBarcodeImage(file);
+}
+function handleBarcodeImageSelect(e) { if(e.target.files[0]) processBarcodeImage(e.target.files[0]); }
+
+function processBarcodeImage(file) {
+  var reader=new FileReader();
+  reader.onload=function(e){
+    document.getElementById('bc-img-preview').src=e.target.result;
+    document.getElementById('bc-img-preview-box').style.display='block';
+    decodeBarcodeFromDataUrl(e.target.result);
+  };
+  reader.readAsDataURL(file);
+}
+
+function decodeBarcodeFromDataUrl(dataUrl) {
+  var img=new Image();
+  img.onload=function(){
+    var c=document.createElement('canvas'); c.width=img.naturalWidth; c.height=img.naturalHeight;
+    c.getContext('2d').drawImage(img,0,0);
+    var d=c.getContext('2d').getImageData(0,0,c.width,c.height);
+    if (typeof jsQR !== 'undefined') {
+      var r=jsQR(d.data,c.width,c.height,{inversionAttempts:'attemptBoth'});
+      if (r) {
+        var resultDiv = document.getElementById('bc-img-result');
+        resultDiv.style.display='block';
+        var isProduct=/^\d{8,14}$/.test(r.data);
+        resultDiv.innerHTML='<div class="result-box success"><div class="result-header"><span class="result-label success">DECODED</span><span class="barcode-type-tag">QR / BARCODE</span></div><div class="result-text" style="font-family:monospace;font-weight:700;font-size:1rem;">'+r.data+'</div><div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;"><button class="btn btn-primary btn-sm" onclick="copyToClipboard(\''+r.data.replace(/'/g,'\\\'')+'\')" >📋 Copy</button>'+(isProduct?'<button class="btn btn-sm btn-outline" onclick="window.open(\'https://www.barcodelookup.com/'+r.data+'\',\'_blank\',\'noopener\')" >🔍 Lookup</button>':'')+'</div></div>';
+        document.getElementById('bc-img-status').style.display='none';
+        addBarcodeHistory(r.data, 'BARCODE');
+        updateStats();
+      } else {
+        document.getElementById('bc-img-status').className='alert alert-error';
+        document.getElementById('bc-img-status').innerHTML='<span>❌</span><span>No barcode found. Try a clearer, higher-resolution image.</span>';
+        document.getElementById('bc-img-result').style.display='none';
+      }
+    }
+  };
+  img.src=dataUrl;
+}
+
+// HISTORY
+function addBarcodeHistory(value, format) {
+  var entry={value:value,format:format||'BARCODE',time:new Date().toLocaleTimeString(),date:new Date().toLocaleDateString()};
+  barcodeHistory.unshift(entry);
+  if(barcodeHistory.length>100) barcodeHistory.pop();
+  localStorage.setItem('barcodeHistory', JSON.stringify(barcodeHistory));
+}
+
+function renderHistoryTable() {
+  var container=document.getElementById('barcode-history-table');
+  document.getElementById('history-stat').textContent=barcodeHistory.length+' barcodes scanned';
+  if(!barcodeHistory.length){container.innerHTML='<div style="padding:24px;text-align:center;color:var(--text-muted);">No barcode history yet.</div>';return;}
+  container.innerHTML='<table class="data-table"><thead><tr><th>Barcode Value</th><th>Format</th><th>Date</th><th>Time</th><th>Actions</th></tr></thead><tbody>'+
+    barcodeHistory.slice(0,50).map(function(item){
+      return '<tr><td style="font-family:monospace;font-weight:700;">'+item.value+'</td><td><span class="barcode-type-tag">'+item.format+'</span></td><td>'+item.date+'</td><td>'+item.time+'</td><td style="display:flex;gap:6px;"><button class="btn btn-sm btn-icon" onclick="copyToClipboard(\''+item.value.replace(/'/g,'\\\'')+'\')" title="Copy" style="font-size:0.75rem;padding:4px 8px;">📋</button>'+((/^\d{8,14}$/.test(item.value))?'<button class="btn btn-sm btn-icon" onclick="window.open(\'https://www.barcodelookup.com/'+item.value+'\',\'_blank\',\'noopener\')" title="Lookup" style="font-size:0.75rem;padding:4px 8px;">🔍</button>':'')+'</td></tr>';
+    }).join('')+'</tbody></table>';
+}
+
+function clearBarcodeHistory() { barcodeHistory=[]; localStorage.removeItem('barcodeHistory'); renderHistoryTable(); updateStats(); }
+
+function exportBarcodeHistory(fmt) {
+  if(!barcodeHistory.length){showToast('No history','error');return;}
+  var content=fmt==='csv'?'Value,Format,Date,Time\n'+barcodeHistory.map(function(i){return '"'+i.value+'","'+i.format+'","'+i.date+'","'+i.time+'"';}).join('\n'):JSON.stringify(barcodeHistory,null,2);
+  var blob=new Blob([content],{type:fmt==='csv'?'text/csv':'application/json'});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a');a.href=url;a.download='barcode-history.'+fmt;a.click();URL.revokeObjectURL(url);
+  showToast('Exported as '+fmt.toUpperCase(),'success');
+}
+
+function updateStats() {
+  document.getElementById('total-scans-count').textContent=barcodeHistory.length;
+  var unique=[...new Set(barcodeHistory.map(function(i){return i.value;}))].length;
+  document.getElementById('unique-scans-count').textContent=unique;
+  document.getElementById('session-count').textContent=sessionCount;
+}
+
+// Init
+updateStats();
+document.getElementById('bc-drop').addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();document.getElementById('bc-file-input').click();}});
+document.getElementById('bc-drop').addEventListener('dragover',function(e){e.preventDefault();this.classList.add('dragover');});
+document.getElementById('bc-drop').addEventListener('dragleave',function(){this.classList.remove('dragover');});
+</script>
+</body>
+</html>

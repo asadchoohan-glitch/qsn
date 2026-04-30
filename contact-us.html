@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us</title>
+  <meta name="description" content="Get in touch with QRCodeScan. Have a question, found a bug, or want to suggest a new feature? We read every message and typically respond within 24 hours.">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="QRCodeScan">
+  <link rel="canonical" href="https://qrcodescann.com/contact-us">
+  <!-- Open Graph -->
+  <meta property="og:title" content="Contact Us">
+  <meta property="og:description" content="Get in touch with QRCodeScan. Have a question, found a bug, or want to suggest a new feature? We read every message and typically respond within 24 hours.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://qrcodescann.com/contact-us">
+  <meta property="og:image" content="https://qrcodescann.com/images/qr_scanner.avif">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Contact Us">
+  <meta name="twitter:description" content="Get in touch with QRCodeScan. Have a question, found a bug, or want to suggest a new feature? We read every message and typically respond within 24 hours.">
+  <meta name="twitter:image" content="https://qrcodescann.com/images/qr_scanner.avif">
+  <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+  <link rel="manifest" href="/favicon/site.webmanifest" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar" role="navigation" aria-label="Main navigation">
+  <div class="container">
+    <a href="/" class="nav-logo" aria-label="QRScanPro Home">
+      <img src="images/qr_code_scanner.avif" alt="QR Code Scanner Logo" style="height: 36px; width: auto; object-fit: contain;">
+      <span>QR<em>Code</em>Scan</span>
+    </a>
+    <ul class="nav-menu" id="nav-menu" role="menubar">
+      <li role="none"><a href="/image-qr-scanner" role="menuitem">Image Qr Scanner</a></li>
+      <li role="none"><a href="/wifi-qr-scanner" role="menuitem">WiFi QR Scanner</a></li>
+      <li role="none"><a href="/barcode-scanner" role="menuitem">Barcode Scanner</a></li>
+      <li role="none"><a href="/qr-code-generator" class="nav-cta" role="menuitem">Qr Code Generator →</a></li>
+    </ul>
+    <button class="nav-toggle" id="nav-toggle" aria-controls="nav-menu" aria-expanded="false" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<section class="page-hero" aria-labelledby="hero-h1">
+  <div class="container" style="text-align: center;">
+    <h1 id="hero-h1">Contact Us</h1>
+    <p>Have a question, found a bug, or want to suggest a new feature? We read every message and typically respond within 24 hours.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1.5fr;gap:40px;max-width:900px;margin:0 auto;">
+
+      <!-- Contact Info -->
+      <div>
+        <h2 style="margin-bottom:20px;">Get in Touch</h2>
+        <div class="feature-item" style="margin-bottom:20px;">
+          <div class="feature-icon">🐛</div>
+          <div><h3>Bug Reports</h3><p>Found something not working Please describe the issue, your browser, and device type. Screenshots helpUs to Fix it.</p></div>
+        </div>
+        <div class="feature-item" style="margin-bottom:20px;">
+          <div class="feature-icon">💡</div>
+          <div><h3>Feature Requests</h3><p>Have an idea for a new tool or improvement. We love hearing from our users and building what's most useful.</p></div>
+        </div>
+        <div class="feature-item" style="margin-bottom:20px;">
+          <div class="feature-icon">❓</div>
+          <div><h3>General Questions</h3><p>Questions about how our tools work, privacy practices, or anything else just ask.</p></div>
+        </div>
+
+        <div style="margin-top:28px;padding:20px;background:var(--bg-light);border-radius:var(--radius-lg);border:1px solid var(--border);">
+          <h3 style="font-size:1rem;margin-bottom:12px;">Quick Help Links</h3>
+          <ul style="list-style:none;padding:0;">
+            <li style="margin-bottom:8px;"><a href="/wifi-qr-scanner" style="font-size:0.875rem;">→ How to decode a WiFi QR code</a></li>
+            <li style="margin-bottom:8px;"><a href="/qr-code-generator" style="font-size:0.875rem;">→ How to create a QR code with logo</a></li>
+            <li style="margin-bottom:8px;"><a href="/image-qr-scanner" style="font-size:0.875rem;">→ Scan QR code from screenshot</a></li>
+            <li style="margin-bottom:8px;"><a href="/privacy-policy" style="font-size:0.875rem;">→ Privacy policy & data handling</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Contact Form -->
+      <div>
+        <div class="tool-card">
+          <h2 style="font-size:1.2rem;margin-bottom:20px;">Send Us a Message</h2>
+          <form id="contact-form" onsubmit="submitContactForm(event)" novalidate>
+            <div class="form-group">
+              <label class="form-label" for="contact-name">Your Name *</label>
+              <input type="text" class="form-input" id="contact-name" placeholder="Full name" required aria-required="true">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="contact-email">Email Address *</label>
+              <input type="email" class="form-input" id="contact-email" placeholder="you@email.com" required aria-required="true">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="contact-subject">Subject *</label>
+              <select class="form-select" id="contact-subject" required aria-required="true">
+                <option value="">— Select a topic —</option>
+                <option value="bug">🐛 Bug Report</option>
+                <option value="feature">💡 Feature Request</option>
+                <option value="question">❓ General Question</option>
+                <option value="feedback">⭐ Feedback</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="contact-tool">Related Tool (optional)</label>
+              <select class="form-select" id="contact-tool">
+                <option value="">— All tools / General —</option>
+                <option value="scanner">QR Code Scanner</option>
+                <option value="generator">QR Code Generator</option>
+                <option value="image">Image QR Scanner</option>
+                <option value="wifi">WiFi QR Scanner</option>
+                <option value="barcode">Barcode Scanner</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="contact-message">Message *</label>
+              <textarea class="form-input form-textarea" id="contact-message" placeholder="Describe your question, issue, or feedback in detail. For bug reports, please include your browser and device type." required aria-required="true" style="min-height:130px;"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-full btn-lg">
+              📤 Send Message
+            </button>
+          </form>
+          <div id="form-success" style="display:none;" class="alert alert-success" style="margin-top:16px;">
+            <span>✅</span>
+            <div>
+              <strong>Message sent!</strong> Thank you for contacting us. We'll get back to you within 24 hours.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="footer-logo" aria-label="QRScanPro Home">
+          <img src="images/qr_code_scanner.avif" alt="QR Code Scanner Logo">
+          QrCodeScan
+        </a>
+        <p class="footer-desc">Free online QR code and barcode scanner. Scan, generate, and decode QR codes instantly without any app or signup. 100% private all processing happens in your browser.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Tools</h4>
+        <ul class="footer-links">
+          <li><a href="/image-qr-scanner">Image QR Scanner</a></li>
+          <li><a href="/wifi-qr-scanner">WiFi QR Scanner</a></li>
+          <li><a href="/barcode-scanner">Barcode Scanner</a></li>
+          <li><a href="/qr-code-generator">QR Code Generator</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul class="footer-links">
+          <li><a href="/about-us">About Us</a></li>
+          <li><a href="/contact-us">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul class="footer-links">
+          <li><a href="/privacy-policy">Privacy Policy</a></li>
+          <li><a href="/terms-of-service">Terms of Service</a></li>
+          <li><a href="/disclaimer">Disclaimer</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 QRCodeScan. All rights reserved.</span>
+      <span><a href="/privacy-policy">Privacy</a> · <a href="/terms-of-service">Terms</a> · <a href="/disclaimer">Disclaimer</a> · <a href="sitemap.xml">Sitemap</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/nav.js"></script>
+<script>
+function submitContactForm(e) {
+  e.preventDefault();
+  var name = document.getElementById('contact-name').value.trim();
+  var email = document.getElementById('contact-email').value.trim();
+  var subject = document.getElementById('contact-subject').value;
+  var message = document.getElementById('contact-message').value.trim();
+
+  if (!name || !email || !subject || !message) {
+    showToast('Please fill in all required fields', 'error'); return;
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    showToast('Please enter a valid email address', 'error'); return;
+  }
+
+  // Simulate form submission (static site — would need backend in production)
+  document.getElementById('contact-form').style.display = 'none';
+  document.getElementById('form-success').style.display = 'flex';
+  showToast('Message sent successfully!', 'success');
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WiFi QR Code Scanner Online — Decode WiFi Password from QR Code | QRScanPro</title>
+  <meta name="description" content="Free WiFi QR code scanner online. Upload a WiFi QR code image to instantly extract network name (SSID), password, and security type. Also generate WiFi QR codes. Works on all devices without any app.">
+  <meta name="keywords" content="wifi qr code scanner, scan wifi qr code, wifi qr code reader, decode wifi qr code, wifi password from qr code, wifi qr code generator, read wifi qr code online, wifi qr code scanner free, how to scan wifi qr code, connect wifi using qr code, wifi qr code password reveal, wifi qr code decoder online, scan wifi qr from image">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://qrcodescann.com/wifi-qr-scanner">
+  <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+  <link rel="manifest" href="/favicon/site.webmanifest" />
+  <meta property="og:title" content="WiFi QR Code Scanner — Decode Network Name & Password Instantly">
+  <meta property="og:description" content="Scan WiFi QR codes to reveal SSID and password. Also generate WiFi QR codes. Free, no app needed.">
+  <meta property="og:type" content="website">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"WebApplication","name":"QRScanPro - WiFi QR Code Scanner","description":"Scan and decode WiFi QR codes online to extract network SSID, password, and security type. Also generate WiFi QR codes instantly.","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar" role="navigation" aria-label="Main navigation">
+  <div class="container">
+    <a href="/" class="nav-logo" aria-label="QRScanPro Home">
+      <img src="images/qr_code_scanner.avif" alt="QR Code Scanner Logo" style="height: 36px; width: auto; object-fit: contain;">
+      <span>QR<em>Code</em>Scan</span>
+    </a>
+    <ul class="nav-menu" id="nav-menu" role="menubar">
+      <li role="none"><a href="/image-qr-scanner" role="menuitem">Image Qr Scanner</a></li>
+      <li role="none"><a href="/wifi-qr-scanner" role="menuitem">WiFi QR Scanner</a></li>
+      <li role="none"><a href="/barcode-scanner" role="menuitem">Barcode Scanner</a></li>
+      <li role="none"><a href="/qr-code-generator" class="nav-cta" role="menuitem">Qr Code Generator →</a></li>
+    </ul>
+    <button class="nav-toggle" id="nav-toggle" aria-controls="nav-menu" aria-expanded="false" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<section class="page-hero text-center" aria-labelledby="hero-h1">
+  <div class="container">
+    <h1 id="hero-h1">WiFi QR Code Scanner</h1>
+    <p style="margin: 0 auto;">Upload or scan a WiFi QR code to instantly reveal the network name (SSID), WiFi password, and security type. Also create shareable WiFi QR codes for your home, hotel, office, or cafe no app required.</p>
+  </div>
+</section>
+
+<section class="section-sm">
+  <div class="container">
+    <div class="tool-card">
+      <div class="tool-tabs" role="tablist">
+        <button class="tab-btn active" onclick="switchTab('scan', this)" role="tab" aria-selected="true">📷 Scan WiFi QR Code</button>
+        <button class="tab-btn" onclick="switchTab('generate', this)" role="tab" aria-selected="false">⚙️ Generate WiFi QR Code</button>
+        <button class="tab-btn" onclick="switchTab('webcam', this)" role="tab" aria-selected="false">🎥 Use Webcam</button>
+      </div>
+
+      <!-- SCAN TAB -->
+      <div class="tab-panel active" id="tab-scan">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;">
+          <div>
+            <h2 class="tool-title" style="font-size:1.05rem;">Upload WiFi QR Code Image</h2>
+            <div class="drop-zone" id="scan-drop" onclick="document.getElementById('wifi-file').click()" ondrop="handleWifiDrop(event)" ondragover="e=>{e.preventDefault();document.getElementById('scan-drop').classList.add('dragover');}" ondragleave="document.getElementById('scan-drop').classList.remove('dragover')" role="button" tabindex="0">
+              <div class="drop-zone-icon">📶</div>
+              <p><strong>Drop WiFi QR code image here</strong></p>
+              <p>or click to choose file</p>
+              <small>JPG, PNG, GIF, WebP, BMP supported</small>
+              <input type="file" id="wifi-file" accept="image/*" onchange="handleWifiFileSelect(event)">
+            </div>
+            <div id="wifi-preview-box" style="display:none;margin-top:12px;text-align:center;">
+              <img id="wifi-preview" src="" alt="WiFi QR code preview" style="max-height:180px;border-radius:8px;border:1px solid var(--border);">
+            </div>
+          </div>
+          <div>
+            <h2 class="tool-title" style="font-size:1.05rem;">WiFi Network Details</h2>
+            <div id="wifi-scan-placeholder" class="alert alert-info">
+              <span>📶</span>
+              <span>Upload a WiFi QR code to extract network details. The network name, password, and security type will appear here.</span>
+            </div>
+            <div id="wifi-result" style="display:none;">
+              <div class="wifi-details">
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;">
+                  <span style="font-size:1.5rem;">📶</span>
+                  <div>
+                    <div style="font-weight:800;font-size:1.05rem;" id="wifi-ssid-title">Network Name</div>
+                    <div class="badge-sm badge-success" id="wifi-sec-badge">WPA2</div>
+                  </div>
+                </div>
+                <div class="wifi-detail-row"><span class="wifi-detail-label">Network (SSID)</span><span class="wifi-detail-value" id="wr-ssid">—</span></div>
+                <div class="wifi-detail-row"><span class="wifi-detail-label">Password</span><span class="wifi-detail-value" id="wr-password-row">—</span></div>
+                <div class="wifi-detail-row"><span class="wifi-detail-label">Security</span><span class="wifi-detail-value" id="wr-security">—</span></div>
+                <div class="wifi-detail-row"><span class="wifi-detail-label">Hidden</span><span class="wifi-detail-value" id="wr-hidden">No</span></div>
+              </div>
+              <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;">
+                <button class="btn btn-primary btn-sm" onclick="copyWifiPassword()" id="copy-pwd-btn">📋 Copy Password</button>
+                <button class="btn btn-sm btn-outline" onclick="copyAllWifiDetails()">📋 Copy All Details</button>
+                <button class="btn btn-sm btn-outline" onclick="clearWifiScan()">🔄 Scan Another</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- GENERATE TAB -->
+      <div class="tab-panel" id="tab-generate">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;">
+          <div>
+            <h2 class="tool-title" style="font-size:1.05rem;">WiFi Network Details</h2>
+            <div class="form-group">
+              <label class="form-label" for="gen-ssid">Network Name (SSID) *</label>
+              <input type="text" class="form-input" id="gen-ssid" placeholder="MyWiFiNetwork" oninput="generateWifiQR()" aria-label="WiFi network name">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="gen-pass">WiFi Password</label>
+              <div style="position:relative;">
+                <input type="password" class="form-input" id="gen-pass" placeholder="Enter WiFi password" oninput="generateWifiQR()" aria-label="WiFi password" style="padding-right:80px;">
+                <button onclick="togglePassVisibility()" style="position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:0.8rem;color:var(--text-muted);" id="pass-toggle-btn" aria-label="Toggle password visibility">Show</button>
+              </div>
+              <small style="color:var(--text-muted);font-size:0.8rem;">Leave blank for open networks</small>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="gen-sec">Security Type</label>
+              <select class="form-select" id="gen-sec" onchange="generateWifiQR()" aria-label="WiFi security type">
+                <option value="WPA">WPA / WPA2 / WPA3 (Most Common)</option>
+                <option value="WEP">WEP (Older)</option>
+                <option value="nopass">None / Open Network</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
+                <input type="checkbox" id="gen-hidden" onchange="generateWifiQR()">
+                <span>Hidden Network (not broadcasting SSID)</span>
+              </label>
+            </div>
+            <div class="form-group">
+              <label class="form-label">QR Code Color</label>
+              <div style="display:flex;gap:10px;align-items:center;">
+                <input type="color" class="form-input color-input" id="wifi-color" value="#000000" oninput="generateWifiQR()" aria-label="QR color">
+                <span style="font-size:0.85rem;color:var(--text-muted);">Color</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <h2 class="tool-title" style="font-size:1.05rem;">Generated WiFi QR Code</h2>
+            <div class="qr-output-wrapper" id="wifi-qr-output" aria-label="WiFi QR code preview">
+              <div class="qr-placeholder">
+                <div style="font-size:3rem;margin-bottom:8px;">📶</div>
+                <p>Enter your WiFi details to generate a QR code</p>
+              </div>
+            </div>
+            <div style="margin-top:14px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;" id="wifi-dl-btns">
+              <button class="btn btn-primary" onclick="downloadWifiQR('png')" aria-label="Download WiFi QR as PNG">⬇ PNG</button>
+              <button class="btn btn-secondary" onclick="downloadWifiQR('svg')" aria-label="Download WiFi QR as SVG">⬇ SVG</button>
+              <button class="btn btn-outline" onclick="downloadWifiQR('jpg')" aria-label="Download WiFi QR as JPG">⬇ JPG</button>
+            </div>
+            <div class="info-box mt-4" style="margin-top:16px;">
+              <span class="info-box-icon">💡</span>
+              <p>Print this QR code and place it near your router. Guests can scan it to join your WiFi without typing the password.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- WEBCAM TAB -->
+      <div class="tab-panel" id="tab-webcam">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;">
+          <div>
+            <h2 class="tool-title" style="font-size:1.05rem;">Scan WiFi QR with Camera</h2>
+            <div id="cam-placeholder-wifi" style="background:#f9fafb;border:2px dashed #e5e7eb;border-radius:12px;padding:40px 24px;text-align:center;">
+              <div style="font-size:3rem;margin-bottom:12px;">📷</div>
+              <p style="font-weight:600;margin-bottom:8px;">Point camera at WiFi QR Code</p>
+              <button class="btn btn-primary" onclick="startWifiCam()">📷 Open Camera</button>
+            </div>
+            <div id="wifi-cam-container" class="webcam-container" style="display:none;">
+              <video id="wifi-video" autoplay muted playsinline webkit-playsinline></video>
+              <div class="scan-overlay"><div class="scan-frame"></div></div>
+            </div>
+            <div id="wifi-cam-controls" style="display:none;margin-top:12px;">
+              <button class="btn btn-outline btn-sm" onclick="stopWifiCam()">⛔ Stop</button>
+            </div>
+          </div>
+          <div>
+            <h2 class="tool-title" style="font-size:1.05rem;">Scanned WiFi Details</h2>
+            <div id="wifi-cam-result" class="alert alert-info">
+              <span>📶</span><span>Point your camera at a WiFi QR code to decode it.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SEO Intro -->
+<section class="section" style="background:var(--bg-light);">
+  <div class="container">
+    <div style="max-width:860px;margin:0 auto;">
+      <h2>Free Online WiFi QR Code Scanner</h2>
+      <p style="margin-top:16px;font-size:1.05rem;"><strong>WiFi QR code</strong> is a special type of QR code that encodes your wireless network credentials network name (SSID), password, and security protocol into a scannable pattern. When scanned with a smartphone, it automatically connects the device to the WiFi network without any manual input. QRCodeScan <strong>WiFi QR code scanner</strong> lets you upload a WiFi QR code image from any source and instantly reveals all encoded network details. This is incredibly useful when you receive a printed WiFi QR code but need to find out the actual password, when you want to connect a device that can't scan QR codes, or when you need to verify the details encoded in a WiFi QR code. Our <strong><a href="/qr-code-generator.html">WiFi QR code generator</a></strong> also lets you create shareable WiFi QR codes for your home, hotel, cafe, or office in seconds.</p>
+    </div>
+  </div>
+</section>
+
+<!-- How it works -->
+<section class="section">
+  <div class="container">
+    <h2 class="mb-6 text-center">How WiFi QR Codes Work</h2>
+    <div class="grid-3">
+      <div class="card text-center">
+        <div style="font-size:2rem;margin-bottom:10px;">🏨</div>
+        <h3 style="font-size:1rem;margin-bottom:8px;">Hotels & Hospitality</h3>
+        <p style="font-size:0.875rem;">Hotels place WiFi QR codes in rooms so guests can connect instantly. Scan the QR to get the room-specific password without calling reception.</p>
+      </div>
+      <div class="card text-center">
+        <div style="font-size:2rem;margin-bottom:10px;">☕</div>
+        <h3 style="font-size:1rem;margin-bottom:8px;">Cafes & Restaurants</h3>
+        <p style="font-size:0.875rem;">Coffee shops put WiFi QR codes on tables, menus, or walls. Customers can join the WiFi instantly without asking staff for the password.</p>
+      </div>
+      <div class="card text-center">
+        <div style="font-size:2rem;margin-bottom:10px;">🏠</div>
+        <h3 style="font-size:1rem;margin-bottom:8px;">Home Networks</h3>
+        <p style="font-size:0.875rem;">Generate a WiFi QR code for your home network and print it. Guests can connect their devices without you having to repeat your complex password.</p>
+      </div>
+      <div class="card text-center">
+        <div style="font-size:2rem;margin-bottom:10px;">🏢</div>
+        <h3 style="font-size:1rem;margin-bottom:8px;">Offices & Coworking</h3>
+        <p style="font-size:0.875rem;">Office reception areas use WiFi QR codes for visitor network access. Create separate guest network QR codes easily.</p>
+      </div>
+      <div class="card text-center">
+        <div style="font-size:2rem;margin-bottom:10px;">🎪</div>
+        <h3 style="font-size:1rem;margin-bottom:8px;">Events & Conferences</h3>
+        <p style="font-size:0.875rem;">Event organizers display WiFi QR codes on screens or banners so attendees can connect to the event WiFi without announcements.</p>
+      </div>
+      <div class="card text-center">
+        <div style="font-size:2rem;margin-bottom:10px;">🔐</div>
+        <h3 style="font-size:1rem;margin-bottom:8px;">Password Recovery</h3>
+        <p style="font-size:0.875rem;">Forgot your WiFi password but have the QR code? Upload it to our WiFi QR scanner to recover the network password instantly.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WiFi QR Code Format -->
+<section class="section" style="background:var(--bg-light);">
+  <div class="container">
+    <div style="max-width:780px;margin:0 auto;">
+      <h2 class="mb-6">WiFi QR Code Format & Security Types Explained</h2>
+      <p style="margin-bottom:20px;">WiFi QR codes follow the MECARD format for WiFi (<code>WIFI:T:WPA;S:SSID;P:password;H:false;;</code>) and encode the following fields:</p>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead><tr><th>Field</th><th>Code</th><th>Description</th><th>Example</th></tr></thead>
+          <tbody>
+            <tr><td>Security Type</td><td><code>T:</code></td><td>Encryption protocol</td><td>WPA, WPA2, WEP, nopass</td></tr>
+            <tr><td>SSID</td><td><code>S:</code></td><td>Network name</td><td>MyHomeWifi</td></tr>
+            <tr><td>Password</td><td><code>P:</code></td><td>WiFi password</td><td>SecurePass123!</td></tr>
+            <tr><td>Hidden</td><td><code>H:</code></td><td>Is network hidden?</td><td>true or false</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="margin-top:20px;">
+        <h3 style="font-size:1rem;margin-bottom:12px;">Security Type Comparison</h3>
+        <div class="grid-3">
+          <div class="card" style="border-color:#bbf7d0;background:#f0fdf4;"><h4 style="font-size:0.95rem;color:#166534;margin-bottom:6px;">WPA / WPA2 / WPA3</h4><p style="font-size:0.8rem;">Most common modern security type. Use this for most home and office networks. WPA3 is the latest and most secure.</p></div>
+          <div class="card" style="border-color:#fde68a;background:#fffbeb;"><h4 style="font-size:0.95rem;color:#92400e;margin-bottom:6px;">WEP</h4><p style="font-size:0.8rem;">Older, less secure protocol. Still used on some legacy devices. Not recommended for new networks due to known vulnerabilities.</p></div>
+          <div class="card" style="border-color:#e5e7eb;background:#f9fafb;"><h4 style="font-size:0.95rem;color:#374151;margin-bottom:6px;">None / Open</h4><p style="font-size:0.8rem;">No password required. Used for public hotspots. Anyone can connect. Use only for intentionally public networks.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section">
+  <div class="container">
+    <div style="max-width:780px;margin:0 auto;">
+      <h2 class="mb-6">Frequently Asked Questions</h2>
+      <div>
+        <div class="faq-item"><button class="faq-question">Can I see a WiFi password by scanning a QR code<i class="icon faq-icon">+</i></button><div class="faq-answer">Yes WiFi QR codes encode the network password directly in the QR pattern. By uploading a WiFi QR code image to our scanner, you can instantly see the SSID (network name), password, and security type. This is useful when you have a printed WiFi QR code but need to know the actual password to type on a device.</div></div>
+        <div class="faq-item"><button class="faq-question">How do I create a WiFi QR code for my home or business<i class="icon faq-icon">+</i></button><div class="faq-answer">Go to the <strong><a href="/qr-code-generator">Generate WiFi QR Code</a></strong> tab, enter your network name (SSID), password, and security type (WPA2 for most modern networks). Click Generate and download as PNG or SVG. Print it out and place it where guests can see it. When scanned with a smartphone, it will automatically connect to your network.</div></div>
+        <div class="faq-item"><button class="faq-question">Is my WiFi password secure when using this QrCodeScan <i class="icon faq-icon">+</i></button><div class="faq-answer">Yes, completely. All WiFi QR code scanning and generation happens entirely within your browser no data, passwords, or network details are ever transmitted to any server. You can even use it without an internet connection after the page loads.</div></div>
+        <div class="faq-item"><button class="faq-question">What does "Hidden Network" mean in WiFi QR codes<i class="icon faq-icon">+</i></button><div class="faq-answer">A hidden network doesn't broadcast its name (SSID) publicly. To connect manually, users must know and type the exact network name. When generating a WiFi QR code for a hidden network, check the "Hidden Network" option so that scanning devices know to look for a non-broadcasting network.</div></div>
+        <div class="faq-item"><button class="faq-question">Does this WiFi QR scanner work on Android and iPhone<i class="icon faq-icon">+</i></button><div class="faq-answer">Yes QRCideScan works on all modern smartphones. On iPhone (iOS 13+), open in Safari. On Android, use Chrome or Firefox. You can upload WiFi QR code images from your gallery or use the webcam scanner to scan a physical QR code.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Related -->
+<section class="section" style="background:var(--bg-light);">
+  <div class="container">
+    <h2 class="mb-6">Related QR Code Tools</h2>
+    <div class="related-tools">
+      <a href="/" class="related-tool-card"><div class="related-tool-icon" style="background:#e8f0fe;">📷</div><div><h4>QR Code Scanner</h4><p>Scan any QR code from webcam or image</p></div></a>
+      <a href="/qr-code-generator" class="related-tool-card"><div class="related-tool-icon" style="background:#ede9fe;">⚙️</div><div><h4>QR Code Generator</h4><p>Create QR codes for URL, vCard, SMS, and more</p></div></a>
+      <a href="/image-qr-scanner" class="related-tool-card"><div class="related-tool-icon" style="background:#f0fdf4;">🖼️</div><div><h4>Image QR Scanner</h4><p>Read QR codes from any uploaded image file</p></div></a>
+      <a href="/barcode-scanner" class="related-tool-card"><div class="related-tool-icon" style="background:#fffbeb;">📊</div><div><h4>Barcode Scanner</h4><p>Scan product and 1D barcodes online</p></div></a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="footer-logo" aria-label="QRScanPro Home">
+          <img src="images/qr_code_scanner.avif" alt="QR Code Scanner Logo">
+          QrCodeScan
+        </a>
+        <p class="footer-desc">Free online QR code and barcode scanner. Scan, generate, and decode QR codes instantly without any app or signup. 100% private all processing happens in your browser.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Tools</h4>
+        <ul class="footer-links">
+          <li><a href="/image-qr-scanner">Image QR Scanner</a></li>
+          <li><a href="/wifi-qr-scanner">WiFi QR Scanner</a></li>
+          <li><a href="/barcode-scanner">Barcode Scanner</a></li>
+          <li><a href="/qr-code-generator">QR Code Generator</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul class="footer-links">
+          <li><a href="/about-us">About Us</a></li>
+          <li><a href="/contact-us">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul class="footer-links">
+          <li><a href="/privacy-policy">Privacy Policy</a></li>
+          <li><a href="/terms-of-service">Terms of Service</a></li>
+          <li><a href="/disclaimer">Disclaimer</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 QRCodeScan. All rights reserved.</span>
+      <span><a href="/privacy-policy">Privacy</a> · <a href="/terms-of-service">Terms</a> · <a href="/disclaimer">Disclaimer</a> · <a href="sitemap.xml">Sitemap</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+<script src="js/nav.js"></script>
+<script>
+var wifiCamStream = null, wifiCamInterval = null;
+var currentWifiData = null;
+
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-panel').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
+  document.getElementById('tab-'+name).classList.add('active');
+  btn.classList.add('active'); btn.setAttribute('aria-selected','true');
+  if (name !== 'webcam') stopWifiCam();
+}
+
+// SCAN
+function handleWifiDrop(e) {
+  e.preventDefault();
+  document.getElementById('scan-drop').classList.remove('dragover');
+  var file = e.dataTransfer.files[0];
+  if (file && file.type.startsWith('image/')) processWifiImage(file);
+}
+function handleWifiFileSelect(e) { if (e.target.files[0]) processWifiImage(e.target.files[0]); }
+
+function processWifiImage(file) {
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    document.getElementById('wifi-preview').src = e.target.result;
+    document.getElementById('wifi-preview-box').style.display = 'block';
+    decodeWifiImage(e.target.result);
+  };
+  reader.readAsDataURL(file);
+}
+
+function decodeWifiImage(dataUrl) {
+  var img = new Image();
+  img.onload = function() {
+    var c = document.createElement('canvas'); c.width=img.naturalWidth; c.height=img.naturalHeight;
+    c.getContext('2d').drawImage(img,0,0);
+    var d = c.getContext('2d').getImageData(0,0,c.width,c.height);
+    if (typeof jsQR !== 'undefined') {
+      var r = jsQR(d.data, c.width, c.height, {inversionAttempts:'attemptBoth'});
+      if (r) { processWifiText(r.data); }
+      else { showWifiError('No QR code found. Try a clearer image.'); }
+    }
+  };
+  img.src = dataUrl;
+}
+
+function processWifiText(text) {
+  if (!/^WIFI:/i.test(text)) {
+    showWifiError('This QR code is not a WiFi QR code. It appears to be a <strong>' + detectQRTypeName(text) + '</strong> QR code. <a href="/">Use the main scanner</a> to decode it.');
+    return;
+  }
+  var wifi = parseWifi(text);
+  currentWifiData = wifi;
+  document.getElementById('wifi-scan-placeholder').style.display = 'none';
+  document.getElementById('wifi-result').style.display = 'block';
+  document.getElementById('wifi-ssid-title').textContent = wifi.ssid || 'Unknown Network';
+  document.getElementById('wifi-sec-badge').textContent = wifi.security || 'Unknown';
+  document.getElementById('wr-ssid').textContent = wifi.ssid || '—';
+  document.getElementById('wr-password-row').innerHTML = wifi.password ?
+    '<span class="wifi-password">' + wifi.password + '</span>' : '<em style="color:var(--text-muted);">No password (open network)</em>';
+  document.getElementById('wr-security').textContent = wifi.security || '—';
+  document.getElementById('wr-hidden').textContent = wifi.hidden ? 'Yes (hidden network)' : 'No';
+  if (!wifi.password) document.getElementById('copy-pwd-btn').style.display = 'none';
+  showToast('WiFi QR code decoded!', 'success');
+}
+
+function showWifiError(msg) {
+  document.getElementById('wifi-scan-placeholder').className = 'alert alert-error';
+  document.getElementById('wifi-scan-placeholder').innerHTML = '<span>❌</span><span>' + msg + '</span>';
+  document.getElementById('wifi-scan-placeholder').style.display = 'flex';
+  document.getElementById('wifi-result').style.display = 'none';
+}
+
+function copyWifiPassword() {
+  if (currentWifiData && currentWifiData.password) copyToClipboard(currentWifiData.password);
+  else showToast('No password found','error');
+}
+function copyAllWifiDetails() {
+  if (!currentWifiData) return;
+  var txt = 'Network: '+currentWifiData.ssid+'\nPassword: '+currentWifiData.password+'\nSecurity: '+currentWifiData.security;
+  copyToClipboard(txt);
+}
+function clearWifiScan() {
+  document.getElementById('wifi-result').style.display = 'none';
+  document.getElementById('wifi-preview-box').style.display = 'none';
+  document.getElementById('wifi-scan-placeholder').className = 'alert alert-info';
+  document.getElementById('wifi-scan-placeholder').innerHTML = '<span>📶</span><span>Upload a WiFi QR code to extract network details.</span>';
+  document.getElementById('wifi-scan-placeholder').style.display = 'flex';
+  document.getElementById('wifi-file').value = '';
+  currentWifiData = null;
+}
+
+// GENERATE
+function generateWifiQR() {
+  var ssid = document.getElementById('gen-ssid').value;
+  if (!ssid) return;
+  var pass = document.getElementById('gen-pass').value;
+  var sec = document.getElementById('gen-sec').value;
+  var hidden = document.getElementById('gen-hidden').checked;
+  var color = document.getElementById('wifi-color').value;
+  var data = 'WIFI:T:'+sec+';S:'+ssid+';P:'+pass+';H:'+(hidden?'true':'false')+';;';
+  var container = document.getElementById('wifi-qr-output');
+  container.innerHTML = '';
+  if (typeof QRCode === 'undefined') return;
+  var canvas = document.createElement('canvas');
+  container.appendChild(canvas);
+  QRCode.toCanvas(canvas, data, {width:260, margin:2, color:{dark:color, light:'#ffffff'}, errorCorrectionLevel:'M'}, function(err){
+    if (!err) { window._wifiQRCanvas = canvas; window._wifiQRData = data; }
+  });
+}
+
+function downloadWifiQR(fmt) {
+  var canvas = window._wifiQRCanvas;
+  var data = window._wifiQRData;
+  if (!canvas) { showToast('Please generate a QR code first','error'); return; }
+  if (fmt === 'png') { var a=document.createElement('a'); a.download='wifi-qr.png'; a.href=canvas.toDataURL('image/png'); a.click(); }
+  else if (fmt === 'jpg') {
+    var c=document.createElement('canvas'); c.width=canvas.width; c.height=canvas.height;
+    var ctx=c.getContext('2d'); ctx.fillStyle='#fff'; ctx.fillRect(0,0,c.width,c.height); ctx.drawImage(canvas,0,0);
+    var a2=document.createElement('a'); a2.download='wifi-qr.jpg'; a2.href=c.toDataURL('image/jpeg',0.95); a2.click();
+  } else if (fmt === 'svg' && typeof QRCode !== 'undefined') {
+    QRCode.toString(data, {type:'svg',width:300,margin:2}, function(err,svg){
+      if (err) return;
+      var blob=new Blob([svg],{type:'image/svg+xml'});
+      var url=URL.createObjectURL(blob);
+      var a=document.createElement('a'); a.download='wifi-qr.svg'; a.href=url; a.click(); URL.revokeObjectURL(url);
+    });
+  }
+  showToast('WiFi QR downloaded!', 'success');
+}
+
+function togglePassVisibility() {
+  var input = document.getElementById('gen-pass');
+  var btn = document.getElementById('pass-toggle-btn');
+  if (input.type === 'password') { input.type = 'text'; btn.textContent = 'Hide'; }
+  else { input.type = 'password'; btn.textContent = 'Show'; }
+}
+
+// WEBCAM
+function startWifiCam() {
+  if (!navigator.mediaDevices) { showToast('Camera not supported','error'); return; }
+  document.getElementById('cam-placeholder-wifi').style.display='none';
+  document.getElementById('wifi-cam-container').style.display='block';
+  document.getElementById('wifi-cam-controls').style.display='block';
+  navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'}}}).then(function(s){
+    wifiCamStream = s;
+    var vid = document.getElementById('wifi-video');
+    vid.srcObject = s; vid.play();
+    var c = document.createElement('canvas'); var ctx = c.getContext('2d');
+    wifiCamInterval = setInterval(function(){
+      if (!vid.videoWidth) return;
+      c.width=vid.videoWidth; c.height=vid.videoHeight; ctx.drawImage(vid,0,0);
+      var d=ctx.getImageData(0,0,c.width,c.height);
+      if (typeof jsQR !== 'undefined') {
+        var r=jsQR(d.data,c.width,c.height,{inversionAttempts:'dontInvert'});
+        if (r && r.data) {
+          stopWifiCam();
+          processWifiText(r.data);
+          var cr = document.getElementById('wifi-cam-result');
+          if (/^WIFI:/i.test(r.data)) {
+            var w = parseWifi(r.data);
+            cr.className='alert alert-success';
+            cr.innerHTML='<span>✅</span><span>WiFi QR decoded! Network: <strong>'+w.ssid+'</strong> | Password: <strong>'+w.password+'</strong></span>';
+          } else { cr.className='alert alert-info'; cr.innerHTML='<span>ℹ️</span><span>Scanned: '+r.data+'</span>'; }
+        }
+      }
+    }, 300);
+  }).catch(function(err){ showToast('Camera error: '+err.message,'error'); document.getElementById('cam-placeholder-wifi').style.display='block'; });
+}
+
+function stopWifiCam() {
+  if (wifiCamInterval) { clearInterval(wifiCamInterval); wifiCamInterval=null; }
+  if (wifiCamStream) { wifiCamStream.getTracks().forEach(function(t){t.stop();}); wifiCamStream=null; }
+  document.getElementById('wifi-cam-container').style.display='none';
+  document.getElementById('cam-placeholder-wifi').style.display='block';
+  document.getElementById('wifi-cam-controls').style.display='none';
+}
+
+function parseWifi(text) {
+  var d={ssid:'',password:'',security:'',hidden:false};
+  text.slice(5).replace(/;;$/,'').split(';').forEach(function(p){
+    if(p.startsWith('S:')) d.ssid=p.slice(2);
+    else if(p.startsWith('P:')) d.password=p.slice(2);
+    else if(p.startsWith('T:')) d.security=p.slice(2);
+    else if(p.startsWith('H:')) d.hidden=p.slice(2).toLowerCase()==='true';
+  });
+  return d;
+}
+function detectQRTypeName(t) {
+  if(/^https?:\/\//i.test(t)) return 'URL'; if(/^BEGIN:VCARD/i.test(t)) return 'vCard';
+  if(/^tel:/i.test(t)) return 'Phone'; if(/^mailto:/i.test(t)) return 'Email';
+  return 'Text';
+}
+// Drop zone keyboard
+document.getElementById('scan-drop').addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); document.getElementById('wifi-file').click(); }});
+</script>
+</body>
+</html>
