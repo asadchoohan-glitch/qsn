@@ -1,7 +1,7 @@
 {
-  "name": "scanner",
+  "name": "qr code scanner",
   "version": "1.0.0",
-  "description": "A complete, production-ready multi-page static website for QR code and barcode utilities. Built to outperform [scanqr.org](https://scanqr.org/) with better SEO, faster loading, more features, and full mobile-first responsive design.",
+  "description": "WiFi QR Code Scanner delivers instant connectivity by decoding network credentials through your camera or image uploads.",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "vite": "^8.0.8"
+    "vite": "^8.0.8",
+    "vite-plugin-sitemap": "^0.8.2"
   }
 }

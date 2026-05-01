@@ -83,7 +83,7 @@
         </div>
       </div>
 
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;">
+      <div class="tool-grid-2">
         <!-- LEFT: Input + Customization -->
         <div>
           <!-- Dynamic Input Fields -->
@@ -92,7 +92,7 @@
           <!-- Customization -->
           <div style="border-top:1px solid var(--border);padding-top:20px;margin-top:4px;">
             <h3 style="font-size:0.95rem;font-weight:700;margin-bottom:14px;">🎨 Customize QR Code</h3>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+            <div class="form-grid-2">
               <div class="form-group" style="margin-bottom:0;">
                 <label class="form-label" for="qr-dark-color">QR Color</label>
                 <div style="display:flex;gap:8px;align-items:center;">
@@ -180,7 +180,7 @@
 
           <!-- Download Buttons -->
           <div style="margin-top:14px;" id="download-btns" aria-label="Download QR code">
-            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+            <div class="btn-grid-3">
               <button class="btn btn-primary" onclick="downloadQR('png')" aria-label="Download QR code as PNG">⬇ PNG</button>
               <button class="btn btn-secondary" onclick="downloadQR('svg')" aria-label="Download QR code as SVG">⬇ SVG</button>
               <button class="btn btn-outline" onclick="downloadQR('jpg')" aria-label="Download QR code as JPG">⬇ JPG</button>

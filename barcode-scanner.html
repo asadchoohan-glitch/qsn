@@ -67,7 +67,7 @@
 
       <!-- WEBCAM TAB -->
       <div class="tab-panel active" id="tab-webcam">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;">
+        <div class="tool-grid-2">
           <div>
             <div id="bc-cam-placeholder" style="background:#f9fafb;border:2px dashed #e5e7eb;border-radius:12px;padding:48px 24px;text-align:center;">
               <div style="font-size:3rem;margin-bottom:12px;">📊</div>
@@ -129,7 +129,7 @@
             </div>
 
             <!-- Quick Stats -->
-            <div style="margin-top:20px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;text-align:center;">
+            <div class="stats-grid-3" style="margin-top:20px;">
               <div style="padding:12px;background:var(--bg-light);border-radius:8px;border:1px solid var(--border);">
                 <div style="font-size:1.3rem;font-weight:800;color:var(--primary);" id="total-scans-count">0</div>
                 <div style="font-size:0.75rem;color:var(--text-muted);">Total Scans</div>
@@ -149,7 +149,7 @@
 
       <!-- IMAGE TAB -->
       <div class="tab-panel" id="tab-image">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;">
+        <div class="tool-grid-2">
           <div>
             <h2 class="tool-title" style="font-size:1.05rem;">Upload Barcode Image</h2>
             <div class="drop-zone" id="bc-drop" onclick="document.getElementById('bc-file-input').click()" ondrop="handleBarcodeImageDrop(event)" ondragover="e=>{e.preventDefault();document.getElementById('bc-drop').classList.add('dragover');}" ondragleave="document.getElementById('bc-drop').classList.remove('dragover')" role="button" tabindex="0">

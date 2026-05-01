@@ -1,63 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>index.html</loc>
-    <lastmod>2024-05-01</lastmod>
+    <loc>https://qrcodescann.com/</loc>
+    <lastmod>2026-05-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.00</priority>
   </url>
   <url>
-    <loc>qr-code-generator.html</loc>
-    <lastmod>2024-05-01</lastmod>
+    <loc>https://qrcodescann.com/qr-code-generator</loc>
+    <lastmod>2026-05-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
-    <loc>image-qr-scanner.html</loc>
-    <lastmod>2024-05-01</lastmod>
+    <loc>https://qrcodescann.com/image-qr-scanner</loc>
+    <lastmod>2026-05-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>wifi-qr-scanner.html</loc>
-    <lastmod>2024-05-01</lastmod>
+    <loc>https://qrcodescann.com/wifi-qr-scanner</loc>
+    <lastmod>2026-05-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>barcode-scanner.html</loc>
-    <lastmod>2024-05-01</lastmod>
+    <loc>https://qrcodescann.com/barcode-scanner</loc>
+    <lastmod>2026-05-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
 
   <url>
-    <loc>about-us.html</loc>
-    <lastmod>2024-05-01</lastmod>
+    <loc>https://qrcodescann.com/about-us</loc>
+    <lastmod>2026-05-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.60</priority>
   </url>
   <url>
-    <loc>contact-us.html</loc>
-    <lastmod>2024-05-01</lastmod>
+    <loc>https://qrcodescann.com/contact-us</loc>
+    <lastmod>2026-05-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.60</priority>
   </url>
   <url>
-    <loc>privacy-policy.html</loc>
-    <lastmod>2024-05-01</lastmod>
+    <loc>https://qrcodescann.com/privacy-policy</loc>
+    <lastmod>2026-05-01</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.40</priority>
   </url>
   <url>
-    <loc>terms-of-service.html</loc>
-    <lastmod>2024-05-01</lastmod>
+    <loc>https://qrcodescann.com/terms-of-service</loc>
+    <lastmod>2026-05-01</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.40</priority>
   </url>
   <url>
-    <loc>disclaimer.html</loc>
-    <lastmod>2026-04-25</lastmod>
+    <loc>https://qrcodescann.com/disclaimer</loc>
+    <lastmod>2026-05-01</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.40</priority>
   </url>

@@ -62,7 +62,7 @@
 
       <!-- SCAN TAB -->
       <div class="tab-panel active" id="tab-scan">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;">
+        <div class="tool-grid-2">
           <div>
             <h2 class="tool-title" style="font-size:1.05rem;">Upload WiFi QR Code Image</h2>
             <div class="drop-zone" id="scan-drop" onclick="document.getElementById('wifi-file').click()" ondrop="handleWifiDrop(event)" ondragover="e=>{e.preventDefault();document.getElementById('scan-drop').classList.add('dragover');}" ondragleave="document.getElementById('scan-drop').classList.remove('dragover')" role="button" tabindex="0">
@@ -108,7 +108,7 @@
 
       <!-- GENERATE TAB -->
       <div class="tab-panel" id="tab-generate">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;">
+        <div class="tool-grid-2">
           <div>
             <h2 class="tool-title" style="font-size:1.05rem;">WiFi Network Details</h2>
             <div class="form-group">
@@ -153,7 +153,7 @@
                 <p>Enter your WiFi details to generate a QR code</p>
               </div>
             </div>
-            <div style="margin-top:14px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;" id="wifi-dl-btns">
+            <div class="btn-grid-3 mt-4" id="wifi-dl-btns">
               <button class="btn btn-primary" onclick="downloadWifiQR('png')" aria-label="Download WiFi QR as PNG">⬇ PNG</button>
               <button class="btn btn-secondary" onclick="downloadWifiQR('svg')" aria-label="Download WiFi QR as SVG">⬇ SVG</button>
               <button class="btn btn-outline" onclick="downloadWifiQR('jpg')" aria-label="Download WiFi QR as JPG">⬇ JPG</button>
@@ -168,7 +168,7 @@
 
       <!-- WEBCAM TAB -->
       <div class="tab-panel" id="tab-webcam">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;">
+        <div class="tool-grid-2">
           <div>
             <h2 class="tool-title" style="font-size:1.05rem;">Scan WiFi QR with Camera</h2>
             <div id="cam-placeholder-wifi" style="background:#f9fafb;border:2px dashed #e5e7eb;border-radius:12px;padding:40px 24px;text-align:center;">

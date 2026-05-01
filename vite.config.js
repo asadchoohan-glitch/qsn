@@ -1,5 +1,6 @@
 import { defineConfig } from "vite";
 import { resolve } from "node:path";
+import sitemap from "vite-plugin-sitemap";
 
 // Plugin to serve extensionless URLs correctly in local development
 function cleanUrlsDevPlugin() {
@@ -16,8 +17,18 @@ function cleanUrlsDevPlugin() {
   };
 }
 
+const hostname = "https://qrcodescann.com";
+
 export default defineConfig({
-  plugins: [cleanUrlsDevPlugin()],
+  plugins: [
+    cleanUrlsDevPlugin(),
+    sitemap({
+      hostname,
+      changefreq: "weekly",
+      priority: 0.8,
+      lastmod: new Date(),
+    }),
+  ],
   build: {
     rollupOptions: {
       // Explicitly initialize all pages
