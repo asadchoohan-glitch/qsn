@@ -387,11 +387,13 @@
   </div>
 </footer>
 
-<script src="https://unpkg.com/qrcode@1.5.3/build/qrcode.min.js"></script>
 <script src="js/nav.js"></script>
 <script>
 var currentType = 'url';
 var logoDataUrl = null;
+var qrLibraryLoadState = 'loading';
+var qrLibraryErrorMessage = '';
+var qrLibraryReadyPromise = null;
 
 var colorPresets = [
   {dark:'#000000',light:'#ffffff',label:'Black'},
@@ -453,6 +455,61 @@ function setQRType(type, btn) {
 // Init
 document.getElementById('qr-fields').innerHTML = qrTypeFields['url'];
 
+function loadScriptSequentially(urls) {
+  var index = 0;
+  return new Promise(function(resolve, reject) {
+    function tryNext() {
+      if (typeof QRCode !== 'undefined') {
+        resolve();
+        return;
+      }
+      if (index >= urls.length) {
+        reject(new Error('Unable to load QR library from all providers.'));
+        return;
+      }
+      var script = document.createElement('script');
+      script.src = urls[index++];
+      script.async = true;
+      script.onload = function() {
+        if (typeof QRCode !== 'undefined') {
+          resolve();
+          return;
+        }
+        tryNext();
+      };
+      script.onerror = function() {
+        tryNext();
+      };
+      document.head.appendChild(script);
+    }
+    tryNext();
+  });
+}
+
+function ensureQRCodeLibraryReady() {
+  if (typeof QRCode !== 'undefined') {
+    qrLibraryLoadState = 'ready';
+    return Promise.resolve();
+  }
+  if (qrLibraryReadyPromise) {
+    return qrLibraryReadyPromise;
+  }
+  qrLibraryLoadState = 'loading';
+  qrLibraryErrorMessage = '';
+  qrLibraryReadyPromise = loadScriptSequentially([
+    'https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js',
+    'https://unpkg.com/qrcode@1.5.3/build/qrcode.min.js',
+    'https://cdnjs.cloudflare.com/ajax/libs/qrcode/1.5.3/qrcode.min.js'
+  ]).then(function() {
+    qrLibraryLoadState = 'ready';
+  }).catch(function(err) {
+    qrLibraryLoadState = 'failed';
+    qrLibraryErrorMessage = err && err.message ? err.message : 'QR library failed to load.';
+    throw err;
+  });
+  return qrLibraryReadyPromise;
+}
+
 function buildData() {
   switch(currentType) {
     case 'url': var v = (document.getElementById('f-url')||{}).value||''; if(v && !/^https?:\/\//i.test(v)) v='https://'+v; return v;
@@ -488,10 +545,17 @@ function generateQR() {
   var container = document.getElementById('qr-output');
   container.innerHTML = '';
 
-  if (typeof QRCode === 'undefined') {
-    container.innerHTML = '<p style="color:var(--error);">QR library is still loading... Please wait a moment.</p>';
-    // Try to auto-retry in 1 second
-    setTimeout(generateQR, 1000);
+  if (qrLibraryLoadState !== 'ready' || typeof QRCode === 'undefined') {
+    if (qrLibraryLoadState === 'failed') {
+      container.innerHTML = '<p style="color:var(--error);">QR generator failed to load. Please refresh the page and check your internet connection.</p>';
+      return;
+    }
+    container.innerHTML = '<p style="color:var(--text-muted);">Loading QR generator library...</p>';
+    ensureQRCodeLibraryReady().then(function() {
+      generateQR();
+    }).catch(function() {
+      container.innerHTML = '<p style="color:var(--error);">QR generator failed to load. Please refresh the page and try again.</p>';
+    });
     return;
   }
 
@@ -597,6 +661,8 @@ function copyQRToClipboard() {
     } catch(e) { showToast('Copy not supported. Please use Download instead.', 'error'); }
   });
 }
+
+ensureQRCodeLibraryReady();
 </script>
 </body>
 </html>
