@@ -497,9 +497,10 @@ function ensureQRCodeLibraryReady() {
   qrLibraryLoadState = 'loading';
   qrLibraryErrorMessage = '';
   qrLibraryReadyPromise = loadScriptSequentially([
-    'https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js',
-    'https://unpkg.com/qrcode@1.5.3/build/qrcode.min.js',
-    'https://cdnjs.cloudflare.com/ajax/libs/qrcode/1.5.3/qrcode.min.js'
+    '/js/qrcode.min.js',
+    'https://cdn.jsdelivr.net/npm/qrcode@1.4.4/build/qrcode.min.js',
+    'https://unpkg.com/qrcode@1.4.4/build/qrcode.min.js',
+    'https://cdnjs.cloudflare.com/ajax/libs/qrcode/1.4.4/qrcode.min.js'
   ]).then(function() {
     qrLibraryLoadState = 'ready';
   }).catch(function(err) {
