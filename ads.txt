@@ -1,2 +1,1 @@
-# Add your AdSense publisher ID before going live.
-# Format required by Google: google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0
+google.com, pub-7126160332652594, DIRECT, f08c47fec0942fa0
